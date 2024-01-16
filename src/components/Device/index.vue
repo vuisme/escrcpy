@@ -368,7 +368,7 @@ export default {
     },
 
     handleRestart() {
-      //this.$electron.ipcRenderer.send('restart-app')
+      // this.$electron.ipcRenderer.send('restart-app')
       this.$adb.tcpip(5555)
     },
     handleLog() {
