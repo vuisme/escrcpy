@@ -65,23 +65,17 @@
 </template>
 
 <script>
-import Screenshot from './Screenshot/index.vue'
-// import AppInstall from './AppInstall/index.vue'
+import Screenshot from './Screenshot/index.vue' // import AppInstall from './AppInstall/index.vue'
 import Gnirehtet from './Gnirehtet/index.vue'
-import MirrorGroup from './MirrorGroup/index.vue'
-// import Rotation from './Rotation/index.vue'
-import Volume from './Volume/index.vue'
-// import FileManage from './FileManage/index.vue'
+import MirrorGroup from './MirrorGroup/index.vue' // import Rotation from './Rotation/index.vue'
+import Volume from './Volume/index.vue' // import FileManage from './FileManage/index.vue'
 
 export default {
   components: {
-    Screenshot,
-    // AppInstall,
+    Screenshot, // AppInstall,
     Gnirehtet,
-    MirrorGroup,
-    // Rotation,
-    Volume,
-    // FileManage,
+    MirrorGroup, // Rotation,
+    Volume, // FileManage,
   },
   props: {
     device: {
