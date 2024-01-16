@@ -24,13 +24,13 @@
     </div>
 
     <div class="text-sm">
-      Supported by
+      The Vision Reality
 
       <a
         class="hover:underline text-primary-500"
-        href="https://viarotel.github.io/"
+        href="https://facebook.com/bunhin"
         target="_blank"
-      >Viarotel</a>
+      >0977.091.190</a>
 
       v{{ version }}
     </div>
@@ -46,7 +46,7 @@ export default {
       loading: false,
       version,
       percent: 0,
-      escrcpyURL: 'https://github.com/viarotel-org/escrcpy',
+      escrcpyURL: 'https://github.com/vuisme/escrcpy',
     }
   },
   created() {
