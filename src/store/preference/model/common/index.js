@@ -37,6 +37,10 @@ export default {
       placeholder: 'preferences.common.language.placeholder',
       options: [
         {
+          label: 'preferences.common.language.vietnamese',
+          value: 'vi_VN',
+        },
+        {
           label: 'preferences.common.language.chinese',
           value: 'zh_CN',
         },
