@@ -1,10 +1,10 @@
 {
   "name": "escrcpy",
-  "version": "1.16.8",
+  "version": "1.0.3",
   "private": true,
   "description": "Scrcpy Powered by Electron",
   "author": "viarotel",
-  "homepage": "https://github.com/viarotel-org/escrcpy",
+  "homepage": "https://github.com/vuisme/escrcpy",
   "main": "dist-electron/main.js",
   "scripts": {
     "dev": "vite",
