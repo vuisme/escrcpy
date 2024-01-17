@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      escrcpyURL: 'https://github.com/viarotel-org/escrcpy',
+      escrcpyURL: 'https://github.com/vuisme/escrcpy',
       tabValue: 'Transmission',
       tabModel: [
         {

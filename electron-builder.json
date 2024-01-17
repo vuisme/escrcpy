@@ -109,7 +109,7 @@
   "npmRebuild": true,
   "publish": {
     "provider": "github",
-    "owner": "viarotel-org",
+    "owner": "vuisme",
     "repo": "escrcpy",
     "updaterCacheDirName": "escrcpy-updater"
   }
