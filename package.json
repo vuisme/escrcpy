@@ -1,9 +1,9 @@
 {
   "name": "thevisionreality",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": true,
   "description": "TheVisionReality - Fork from Scrcpy",
-  "author": "thevisionreality",
+  "author": "vuisme",
   "homepage": "https://github.com/vuisme/escrcpy",
   "main": "dist-electron/main.js",
   "scripts": {
