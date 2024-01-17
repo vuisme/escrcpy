@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
-  "productName": "Escrcpy",
-  "appId": "org.viarotel.escrcpy",
+  "productName": "TheVisionReality",
+  "appId": "org.vuisme.thevisionreality",
   "directories": {
     "output": "dist-release",
     "buildResources": "electron/resources/build"
@@ -51,8 +51,8 @@
     "identityName": "",
     "publisher": "",
     "applicationId": "",
-    "publisherDisplayName": "viarotel",
-    "languages": ["zh-CN", "en-US"]
+    "publisherDisplayName": "vuisme",
+    "languages": ["vi-VN", "en-US"]
   },
   "mac": {
     "icon": "logo.icns",

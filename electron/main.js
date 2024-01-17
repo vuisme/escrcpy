@@ -108,7 +108,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-  electronApp.setAppUserModelId('com.viarotel.escrcpy')
+  electronApp.setAppUserModelId('com.vuisme.thevisionreality')
 
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)

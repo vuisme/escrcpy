@@ -1,9 +1,9 @@
 {
-  "name": "escrcpy",
+  "name": "thevisionreality",
   "version": "1.0.4",
   "private": true,
-  "description": "Scrcpy Powered by Electron",
-  "author": "viarotel",
+  "description": "TheVisionReality - Fork from Scrcpy",
+  "author": "thevisionreality",
   "homepage": "https://github.com/vuisme/escrcpy",
   "main": "dist-electron/main.js",
   "scripts": {

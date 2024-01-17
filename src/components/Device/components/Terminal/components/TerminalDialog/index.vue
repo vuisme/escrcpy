@@ -30,7 +30,7 @@
     >
       <template #prompt>
         <div class="flex items-center pr-2">
-          <span class="">Escrcpy~$</span>
+          <span class="">TheVisionReality~$</span>
         </div>
       </template>
     </VueCommand>

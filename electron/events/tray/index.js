@@ -51,7 +51,7 @@ export default (mainWindow) => {
 
       tray = new Tray(trayPath)
 
-      tray.setToolTip('escrcpy')
+      tray.setToolTip('thevisionreality')
 
       tray.on('click', () => {
         showApp()

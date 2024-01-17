@@ -17,5 +17,5 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           release-type: node
-          package-name: escrcpy
+          package-name: thevisionreality
           prerelease: true
