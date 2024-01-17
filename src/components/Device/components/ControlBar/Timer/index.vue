@@ -4,9 +4,9 @@
       Time remaining: {{ formatTime(countdown) }}
     </div>
     <el-button
-      label="Start"
-      elIcon="Play"
-      component="div"
+      type="primary"
+      class="el-button-nav next"
+      title="Timer"
       @click="startCountdown"
     ></el-button>
   </div>
