@@ -11,6 +11,7 @@
     ></el-button>
   </div>
 </template>
+
 <script>
 
 export default {
@@ -30,7 +31,8 @@ export default {
     handleShell(row) {
       if (row.label === 'Start') {
         this.startCountdown()
-      } else {
+      }
+      else {
         this.$adb.deviceShell(this.device.id, row.command)
       }
     },
