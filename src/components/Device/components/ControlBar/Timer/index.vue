@@ -12,6 +12,7 @@
   </div>
 </template>
 <script>
+
 export default {
   data() {
     return {
@@ -21,19 +22,20 @@ export default {
   },
   methods: {
     startCountdown() {
-      this.countdown = 10 * 60; // 10 phút
+      this.countdown = 10 * 60
       this.countdownTimer = setTimeout(() => {
-        this.handleShell({ command: 'input keyevent 26' });
-      }, this.countdown * 1000); // Chuyển đổi giây thành mili giây
+        this.handleShell({ command: 'input keyevent 26' })
+      }, this.countdown * 1000)
     },
     handleShell(row) {
       if (row.label === 'Start') {
-        this.startCountdown();
+        this.startCountdown()
       } else {
-        this.$adb.deviceShell(this.device.id, row.command);
+        this.$adb.deviceShell(this.device.id, row.command)
       }
     },
   },
 }
 </script>
+
 <style></style>
