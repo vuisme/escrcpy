@@ -70,6 +70,7 @@ import Gnirehtet from './Gnirehtet/index.vue'
 import MirrorGroup from './MirrorGroup/index.vue'
 import Volume from './Volume/index.vue'
 import Timer from './Timer/index.vue'
+
 export default {
   components: {
     Screenshot,
