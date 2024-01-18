@@ -41,10 +41,6 @@ export default {
           value: 'vi_VN',
         },
         {
-          label: 'preferences.common.language.chinese',
-          value: 'zh_CN',
-        },
-        {
           label: 'preferences.common.language.english',
           value: 'en_US',
         },

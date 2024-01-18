@@ -91,7 +91,7 @@ export default {
         {
           label: 'device.control.switch',
           elIcon: 'Switch',
-          command: 'input keyevent 187',
+          component: 'Timer',
         },
         {
           label: 'device.control.home',
