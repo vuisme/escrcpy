@@ -3,15 +3,16 @@
     <div v-if="!countdownStarted">
       Tính giờ
     </div>
-    <div v-if="countdown > 0">
-      Thời gian còn lại: {{ formatTime(countdown) }}
-    </div>
+
     <el-button
       type="primary"
-      class="el-button-nav next"
-      title="Timer"
+      :icon="loading ? '' : 'Connection'"
+      :loading="loading"
       @click="startCountdown"
-    ></el-button>
+    >
+      Tính giờ
+      Thời gian còn lại: {{ formatTime(countdown) }}
+    </el-button>
   </div>
 </template>
 
