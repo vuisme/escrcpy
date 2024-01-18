@@ -24,15 +24,15 @@
     </div>
 
     <div class="text-sm">
-      The Vision Reality phiên bản
-
+      The Vision Reality phiên bản v{{ version }}
+      <br>
+      Số điện thoại:
       <a
         class="hover:underline text-primary-500"
         href="https://facebook.com/bunhin"
         target="_blank"
       >0977.091.190</a>
-      <br>
-      Phiên bản: v{{ version }}
+      
     </div>
   </div>
 </template>
