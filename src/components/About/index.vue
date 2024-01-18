@@ -32,7 +32,6 @@
         href="https://facebook.com/bunhin"
         target="_blank"
       >0977.091.190</a>
-      
     </div>
   </div>
 </template>
