@@ -65,6 +65,7 @@ function createWindow() {
 
   mainWindow = new BrowserWindow({
     // 这里设置的图标仅在开发模式生效，打包后将使用应用程序图标
+    
     ...(!app.isPackaged
       ? {
           icon,
@@ -85,7 +86,7 @@ function createWindow() {
     },
     backgroundColor: 'white',
   })
-
+  mainWindow.webContents.openDevTools()
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })

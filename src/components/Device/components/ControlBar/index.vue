@@ -69,7 +69,6 @@ import Screenshot from './Screenshot/index.vue'
 import Gnirehtet from './Gnirehtet/index.vue'
 import MirrorGroup from './MirrorGroup/index.vue'
 import Volume from './Volume/index.vue'
-import Timer from './Timer/index.vue'
 
 export default {
   components: {
@@ -77,7 +76,6 @@ export default {
     Gnirehtet,
     MirrorGroup,
     Volume,
-    Timer,
   },
   props: {
     device: {
@@ -91,7 +89,7 @@ export default {
         {
           label: 'device.control.switch',
           elIcon: 'Switch',
-          component: 'Timer',
+          command: 'input keyevent 3',
         },
         {
           label: 'device.control.home',
@@ -104,27 +102,10 @@ export default {
           command: 'input keyevent 4',
         },
         {
-          label: 'device.control.notification',
-          elIcon: 'Notification',
-          command: 'cmd statusbar expand-notifications',
-          tips: 'device.control.notification.tips',
-        },
-        {
           label: 'device.control.power',
           elIcon: 'SwitchButton',
           command: 'input keyevent 26',
           tips: 'device.control.power.tips',
-        },
-
-        {
-          label: 'device.control.rotation.name',
-          svgIcon: 'rotation',
-          component: 'Rotation',
-        },
-        {
-          label: 'device.control.volume.name',
-          svgIcon: 'volume-up',
-          component: 'Volume',
         },
         {
           label: 'device.control.capture',

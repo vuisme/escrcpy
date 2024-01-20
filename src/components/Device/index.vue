@@ -50,12 +50,13 @@
           :label="$t('device.id')"
           show-overflow-tooltip
           align="left"
-          width="200"
+          width="150"
         />
         <el-table-column
           :label="$t('device.name')"
           show-overflow-tooltip
           align="left"
+          width="350"
         >
           <template #default="{ row }">
             <div class="flex items-center">
@@ -83,10 +84,25 @@
         </el-table-column>
         <el-table-column
           :label="$t('device.control.name')"
-          width="450"
           align="left"
         >
           <template #default="{ row }">
+            <el-button
+              :loading="row.$countdownTime"
+              type="danger"
+              text
+              :disabled="row.$countdownTime"
+              :icon="row.$countdownTime ? '' : 'Timer'"
+              :class="{ 'time-up': isTimeUp }"
+              @click="countdownTimer(row)"
+            >
+              {{
+                countdownTime
+                  ? `Tính giờ: ${Math.floor(countdownTime / 60)}:${countdownTime % 60}`
+                  : 'Hết giờ'
+              }}
+            </el-button>
+
             <el-button
               :loading="row.$loading"
               type="primary"
@@ -183,6 +199,9 @@ export default {
       loading: false,
       loadingText: this.$t('device.list.loading'),
       deviceList: [],
+      countdownTime: 10,
+      interval: null, // biến lưu trữ hàm setInterval
+      isTimeUp: false,
     }
   },
   computed: {},
@@ -208,6 +227,29 @@ export default {
     this?.unAdbWatch?.()
   },
   methods: {
+    countdownTimer(row) {
+      if (this.interval) {
+        clearInterval(this.interval)
+        this.interval = null
+        this.countdownTime = 10
+        this.isTimeUp = false
+        return
+      }
+      // Nếu không thì bắt đầu đếm ngược
+      this.interval = setInterval(() => {
+        // Giảm thời gian đi 1 giây
+        this.countdownTime--
+        // Nếu thời gian bằng 0 thì dừng lại
+        if (this.countdownTime === 0) {
+          clearInterval(this.interval)
+          this.interval = null
+          this.countdownTime = 10
+          this.isTimeUp = true
+          // Thực hiện hành động khác khi hết thời gian
+          // Ví dụ: alert("Hết giờ!")
+        }
+      }, 1000)
+    },
     onStdout() {},
     handleConnect(...args) {
       this.$refs.wireless.connect(...args)
@@ -422,4 +464,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+  .time-up {
+    background-color: red; /* Màu nền đỏ */
+    color: white; /* Màu chữ trắng */
+    /* Các thuộc tính CSS khác nếu cần */
+  }
+</style>

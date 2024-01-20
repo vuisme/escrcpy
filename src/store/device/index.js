@@ -61,7 +61,7 @@ export const useDeviceStore = defineStore({
         = res?.map(item => ({
           ...item,
           id: item.id,
-          $name: item.model ? item.model.split(':')[1] : '未授权设备',
+          $name: item.model ? item.model.split(':')[1] : 'Thiết bị lạ',
           $unauthorized: item.type === 'unauthorized',
           $wifi: isIPWithPort(item.id),
           $remark: this.getRemark(item.id),

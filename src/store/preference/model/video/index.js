@@ -103,9 +103,14 @@ export default {
     crop: {
       label: 'preferences.video.screen-cropping.name',
       field: '--crop',
-      type: 'Input',
+      type: 'Select',
       value: undefined,
       placeholder: 'preferences.video.screen-cropping.placeholder',
+      options: [
+        { label: 'Quest 2', value: '1600:900:2017:510' },
+        { label: 'Quest 3', value: '1826:1026:137:603' },
+        { label: 'Full View', value: '' },
+      ],
     },
     displayId: {
       label: 'preferences.video.display.name',
