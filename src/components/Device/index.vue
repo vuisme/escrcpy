@@ -1,6 +1,6 @@
 <template>
   <div class="h-full flex flex-col">
-    <div class="flex items-center flex-none space-x-2">
+    <div class="flex items-right flex-none space-x-2">
       <Wireless ref="wireless" :reload="getDeviceData" />
 
       <el-button
@@ -17,7 +17,6 @@
       </el-button>
 
       <el-button icon="View" @click="handleLog">
-        {{ $t("device.log.name") }}
       </el-button>
 
       <Terminal>
@@ -26,7 +25,6 @@
             <template #icon>
               <svg-icon name="command"></svg-icon>
             </template>
-            {{ $t("device.terminal.name") }}
           </el-button>
         </template>
       </Terminal>
@@ -102,6 +100,21 @@
                   : 'Hết giờ'
               }}
             </el-button>
+            <el-button
+              :loading="row.$loading"
+              type="primary"
+              text
+              :disabled="row.$unauthorized"
+              :icon="row.$loading ? '' : 'Play'"
+              @click="openPlayDialog"
+            >
+              {{
+                row.$loading
+                  ? 'Đóng'
+                  : 'Chơi Game'
+              }}
+            </el-button>
+            <AppPlay ref="playDialog" @success="playSuccess" />
 
             <el-button
               :loading="row.$loading"
@@ -185,6 +198,7 @@ import ControlBar from './components/ControlBar/index.vue'
 import Remark from './components/Remark/index.vue'
 import Wireless from './components/Wireless/index.vue'
 import Terminal from './components/Terminal/index.vue'
+import AppPlay from './components/AppPlay/index.vue'
 import { isIPWithPort, sleep } from '@/utils/index.js'
 
 export default {
@@ -193,6 +207,7 @@ export default {
     ControlBar,
     Remark,
     Terminal,
+    AppPlay,
   },
   data() {
     return {
@@ -359,6 +374,9 @@ export default {
       catch (error) {
         console.warn(error)
       }
+    },
+    openPlayDialog() {
+      this.$refs.playDialog.show()
     },
     async handleMirror(row) {
       row.$loading = true

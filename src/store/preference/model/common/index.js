@@ -100,6 +100,19 @@ export default {
       },
       span: 24,
     },
+    appList: {
+      label: 'Danh sách Ứng Dụng',
+      field: 'appJson',
+      value: undefined,
+      type: 'Input',
+      placeholder: 'Json chứa danh sách',
+      tips: 'Json chứa danh sách',
+      props: {
+        type: 'textarea',
+        rows: 4,
+      },
+      span: 24,
+    },
     autoConnect: {
       label: 'preferences.common.auto-connect.name',
       field: 'autoConnect',

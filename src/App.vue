@@ -67,14 +67,12 @@ export default {
 
       this.$alert(
         `<div>
-        该软件依赖与
-        <a class="hover:underline text-primary-500" href="https://github.com/Genymobile/scrcpy" target="_blank">scrcpy</a>
-        ，请确保已正确安装所述依赖项，或者在偏好设置中手动配置依赖项所在位置。
+        Phần mềm được phân phối dành cho hệ thống The Vision Reality. Số điện thoại 0977091190
         <div>`,
-        '注意事项',
+        'Kiểm tra bản quyền',
         {
           dangerouslyUseHTMLString: true,
-          confirmButtonText: '确定',
+          confirmButtonText: 'Xác nhận',
         },
       )
     },
