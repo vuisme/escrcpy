@@ -114,7 +114,7 @@
                   : 'Chơi Game'
               }}
             </el-button>
-            <AppPlay ref="playDialog" @success="playSuccess" />
+            <AppPlay ref="playDialog" :device="row" />
 
             <el-button
               :loading="row.$loading"

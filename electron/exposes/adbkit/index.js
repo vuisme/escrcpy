@@ -163,7 +163,7 @@ const screencap = async (deviceId, options = {}) => {
 }
 
 const install = async (id, path) => client.getDevice(id).install(path)
-
+const runApp = async (id, pkg) => client.getDevice(id).startActivity (pkg)
 const isInstalled = async (id, pkg) => client.getDevice(id).isInstalled(pkg)
 
 const version = async () => client.version()
@@ -268,6 +268,7 @@ export default () => {
     tcpip,
     screencap,
     install,
+    runApp,
     isInstalled,
     version,
     display,
