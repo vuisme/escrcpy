@@ -182,7 +182,7 @@
   "preferences.video.resolution.name": "Kích thước tối đa",
   "preferences.video.resolution.placeholder": "Kích thước thiết bị, định dạng: 1080",
   "preferences.video.bit.name": "Tốc độ Bit Video",
-  "preferences.video.bit.placeholder": "8000000, định dạng: 8M, 8000000",
+  "preferences.video.bit.placeholder": "Mặc định 8000000 (8M)",
   "preferences.video.video-code.name": "Mã hóa Video",
   "preferences.video.video-code.placeholder": "h.264",
   "preferences.video.refresh-rate.name": "Tần suất khung hình",
@@ -197,6 +197,9 @@
   "preferences.video.video-buffer.placeholder": "0",
   "preferences.video.receiver-buffer.name": "Bộ đệm Người nhận (v412)",
   "preferences.video.receiver-buffer.placeholder": "0",
+  "preferences.video.noaudioPlayback.enable.name": "Tắt âm",
+  "preferences.video.noaudioPlayback.placeholder": "BẬt để tắt âm",
+  "preferences.device.noscreenAudio.placeholder": "Tắt phản chiếu âm thanh (bật lên để tắt)",
 
   "preferences.device.name": "Thiết bị",
   "preferences.device.show-touch.name": "Hiển thị Chạm",

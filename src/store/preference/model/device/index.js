@@ -1,6 +1,7 @@
 export default {
   label: 'preferences.device.name',
   field: 'scrcpy',
+
   children: {
     showTouches: {
       label: 'preferences.device.show-touch.name',

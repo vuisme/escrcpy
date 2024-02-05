@@ -106,7 +106,7 @@
               text
               :disabled="row.$unauthorized"
               :icon="row.$loading ? '' : 'Play'"
-              @click="openPlayDialog"
+              @click="openPlayDialog(row)"
             >
               {{
                 row.$loading
@@ -114,7 +114,7 @@
                   : 'Chơi Game'
               }}
             </el-button>
-            <AppPlay ref="playDialog" :device="row" />
+            <AppPlay v-if="row.$loading" ref="playDialog" :device="row" />
 
             <el-button
               :loading="row.$loading"
@@ -238,6 +238,10 @@ export default {
       }
     })
   },
+  mounted() {
+    // Gán giá trị cho playDialog trong mounted hook
+    this.playDialog = this.$refs.playDialog
+  },
   beforeUnmount() {
     this?.unAdbWatch?.()
   },
@@ -273,6 +277,7 @@ export default {
       return this.$store.preference.getData(...args)
     },
     scrcpyArgs(...args) {
+      console.log('test :', this.$store.preference.getScrcpyArgs(...args))
       return this.$store.preference.getScrcpyArgs(...args)
     },
     handleRefresh() {
@@ -375,8 +380,21 @@ export default {
         console.warn(error)
       }
     },
-    openPlayDialog() {
-      this.$refs.playDialog.show()
+    openPlayDialog(row) {
+      row.$loading = true
+      this.$nextTick(() => {
+      // Truy cập this.$refs.playDialog trong callback $nextTick
+        if (this.$refs.playDialog) {
+          this.$refs.playDialog.show()
+          console.log('row: ', row.id)
+        }
+        else {
+          console.error('this.$refs.playDialog is not available.')
+        }
+
+        // Hết loading
+        row.$loading = false
+      })
     },
     async handleMirror(row) {
       row.$loading = true

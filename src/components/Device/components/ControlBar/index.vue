@@ -89,7 +89,7 @@ export default {
         {
           label: 'device.control.switch',
           elIcon: 'Switch',
-          command: 'input keyevent 3',
+          command: 'input keyevent --longpress ',
         },
         {
           label: 'device.control.home',

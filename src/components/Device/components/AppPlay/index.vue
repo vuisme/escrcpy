@@ -5,6 +5,7 @@
     width="800"
     append-to-body
     destroy-on-close
+    opened="handleDialogOpen"
   >
     <div class="h-full flex flex-col">
       <div class="text-red-500 text-sm pb-8 pl-4">
@@ -26,7 +27,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(app, index) in filteredApps" :key="index" class="border-t">
+            <tr v-for="(app, index) in apps" :key="index" class="border-t">
               <td class="py-2 px-4 border">
                 <img :src="app.icon" alt="App Icon" class="w-12 h-12" @click="openApp(device, app.packageName)">
               </td>
@@ -61,44 +62,80 @@ export default {
       visible: false,
     }
   },
-  computed: {
-    filteredApps() {
-      // Lọc danh sách ứng dụng chỉ hiển thị những ứng dụng đã cài đặt
-      return this.apps.filter(app => this.isAppInstalled(app.packageName))
+  watch: {
+    device: {
+      immediate: true, // Trigger the handler immediately after the component is created
+      handler(newDevice, oldDevice) {
+        // Reset the 'apps' array
+        this.apps = []
+        console.log('new device', newDevice)
+        // Fetch and update data based on the new device information
+        this.fetchData(newDevice)
+      },
     },
   },
   mounted() {
-    this.$store.preference.setScope('global')
-    const dataB = this.$store.preference.getData()
-    // Fetch data from the JSON file or API
-    // For simplicity, I'll use a hardcoded path. You may need to adjust this.
-    const appJson = dataB.appJson
-    try {
-      const appJson = JSON.parse(dataB.appJson)
-
-      // Assuming appJson is an array of objects
-      if (Array.isArray(appJson)) {
-        this.apps = appJson
-      }
-      else {
-        console.error('Invalid appJson format. Expected an array.')
-      }
-    }
-    catch (error) {
-      console.error('Error parsing appJson:', error)
-    }
+    console.log('Component Con Mounted with Device:', this.$toRaw(this.device))
+  },
+  updated() {
+    console.log('Component Con Updated with Device:', this.$toRaw(this.device))
+    // Rest of the code...
   },
   methods: {
+    async fetchData(device) {
+      const dataB = this.$store.preference.getData()
+      // Fetch data from the JSON file or API
+      // For simplicity, I'll use a hardcoded path. You may need to adjust this.
+      try {
+        const appJson = JSON.parse(dataB.appJson)
+
+        if (Array.isArray(appJson)) {
+          const apps = await this.filterInstalledApps(appJson, device)
+          this.apps = apps
+          console.log('Updated apps:', this.apps)
+        }
+        else {
+          console.error('Invalid appJson format. Expected an array.')
+        }
+      }
+      catch (error) {
+        console.error('Error parsing appJson:', error)
+      }
+    },
     preferenceData(...args) {
       return this.$store.preference.getData(...args)
     },
-    isAppInstalled(packageName) {
+    async filterInstalledApps(appJson) {
+      const tempApps = []
+
+      for (const app of appJson) {
+        const isInstalled = await this.isAppInstalled(app.packageName)
+        console.log('isAppInstalled result:', isInstalled)
+
+        if (isInstalled) {
+          tempApps.push(app)
+        }
+      }
+
+      return tempApps
+    },
+    async isAppInstalled(packageName) {
       if (!packageName) {
         return false
       }
-      const result = this.$adb.isInstalled(this.device.id, packageName)
-      console.log('Result from isInstalled:', result)
-      return result
+      try {
+        const result = await this.$adb.isInstalled(this.device.id, packageName)
+        console.log('result:', result)
+
+        // Xử lý giá trị result ở đây, nó sẽ là giá trị được resolve từ Promise
+        return result
+      }
+      catch (error) {
+        console.error('Lỗi khi kiểm tra ứng dụng đã cài đặt:', error)
+
+        // Trả về false hoặc xử lý lỗi theo ý bạn
+        return false
+      }
     },
     async openApp(packageName) {
     // Hiển thị thông báo đang chạy
@@ -125,8 +162,11 @@ export default {
           messageEl.close()
         })
     },
-    show() {
+    async show() {
+      console.log('load bảng ra show')
+      this.fetchData(this.device)
       this.visible = true
+      console.log('Is dialog visible?', this.visible)
     },
     handleClose() {
       this.visible = false

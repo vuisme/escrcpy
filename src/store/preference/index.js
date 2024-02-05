@@ -132,7 +132,6 @@ export const usePreferenceStore = defineStore({
 
     getScrcpyArgs(scope = this.deviceScope, { isRecord = false } = {}) {
       const data = this.getData(scope)
-      console.log('getScrcpyArgs.data', data)
 
       if (!data) {
         return ''
@@ -142,7 +141,6 @@ export const usePreferenceStore = defineStore({
         if (!value && typeof value !== 'number') {
           return arr
         }
-
         if (this.excludeKeys.includes(key)) {
           return arr
         }
@@ -165,7 +163,7 @@ export const usePreferenceStore = defineStore({
           }
         }
 
-        if (typeof value === 'boolean') {
+        if (value === true || value === false) {
           arr.push(key)
         }
         else {

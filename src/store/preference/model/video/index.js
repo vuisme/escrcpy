@@ -3,8 +3,14 @@ export default {
   field: 'scrcpy',
 
   children: {
+    noaudioPlayback: {
+      label: 'preferences.video.noaudioPlayback.enable.name',
+      field: '--no-audio-playback',
+      type: 'Switch',
+      value: undefined,
+      placeholder: 'preferences.video.noaudioPlayback.placeholder',
+    },
     videoSource: {
-      hidden: true,
       label: 'preferences.video.video-source.name',
       field: '--video-source',
       type: 'Select',
@@ -112,37 +118,37 @@ export default {
         { label: 'Full View', value: '' },
       ],
     },
-    displayId: {
-      label: 'preferences.video.display.name',
-      field: '--display-id',
-      type: 'DisplaySelect',
-      value: undefined,
-      placeholder: 'preferences.video.display.placeholder',
-      options: [
-        { label: '0', value: '0' },
-        { label: '1', value: '1' },
-        { label: '2', value: '2' },
-      ],
-      props: {
-        filterable: true,
-        allowCreate: true,
-      },
-    },
-    displayBuffer: {
-      label: 'preferences.video.video-buffer.name',
-      field: '--display-buffer',
-      type: 'Input.number',
-      value: undefined,
-      placeholder: 'preferences.video.video-buffer.placeholder',
-      append: 'ms',
-    },
-    v4l2Buffer: {
-      label: 'preferences.video.receiver-buffer.name',
-      field: '--v4l2-buffer',
-      type: 'Input.number',
-      value: undefined,
-      placeholder: 'preferences.video.receiver-buffer.placeholder',
-      append: 'ms',
-    },
+    // displayId: {
+    //   label: 'preferences.video.display.name',
+    //   field: '--display-id',
+    //   type: 'DisplaySelect',
+    //   value: undefined,
+    //   placeholder: 'preferences.video.display.placeholder',
+    //   options: [
+    //     { label: '0', value: '0' },
+    //     { label: '1', value: '1' },
+    //     { label: '2', value: '2' },
+    //   ],
+    //   props: {
+    //     filterable: true,
+    //     allowCreate: true,
+    //   },
+    // },
+    // displayBuffer: {
+    //   label: 'preferences.video.video-buffer.name',
+    //   field: '--display-buffer',
+    //   type: 'Input.number',
+    //   value: undefined,
+    //   placeholder: 'preferences.video.video-buffer.placeholder',
+    //   append: 'ms',
+    // },
+    // v4l2Buffer: {
+    //   label: 'preferences.video.receiver-buffer.name',
+    //   field: '--v4l2-buffer',
+    //   type: 'Input.number',
+    //   value: undefined,
+    //   placeholder: 'preferences.video.receiver-buffer.placeholder',
+    //   append: 'ms',
+    // },
   },
 }

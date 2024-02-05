@@ -63,13 +63,13 @@ export default {
       placeholder: 'preferences.record.no-video-playback.placeholder',
       tips: 'preferences.record.no-video-playback.tips',
     },
-    noAudioPlayback: {
-      label: 'preferences.record.no-audio-playback.name',
-      field: '--no-audio-playback',
-      type: 'Switch',
-      value: undefined,
-      placeholder: 'preferences.record.no-audio-playback.placeholder',
-      tips: 'preferences.record.no-audio-playback.tips',
-    },
+    // noAudioPlayback: {
+    //   label: 'preferences.record.no-audio-playback.name',
+    //   field: '--no-audio-playback',
+    //   type: 'Switch',
+    //   value: undefined,
+    //   placeholder: 'preferences.record.no-audio-playback.placeholder',
+    //   tips: 'preferences.record.no-audio-playback.tips',
+    // },
   },
 }
