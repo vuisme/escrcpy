@@ -86,17 +86,15 @@
         >
           <template #default="{ row }">
             <el-button
-              :loading="row.$countdownTime"
               type="danger"
               text
-              :disabled="row.$countdownTime"
               :icon="row.$countdownTime ? '' : 'Timer'"
-              :class="{ 'time-up': isTimeUp }"
+              :class="{ 'time-up': row.$isTimeUp }"
               @click="countdownTimer(row)"
             >
               {{
-                countdownTime
-                  ? `Tính giờ: ${Math.floor(countdownTime / 60)}:${countdownTime % 60}`
+                row.$countdownTime
+                  ? `Tính giờ: ${Math.floor(row.$countdownTime / 60)}:${row.$countdownTime % 60}`
                   : 'Hết giờ'
               }}
             </el-button>
@@ -214,7 +212,7 @@ export default {
       loading: false,
       loadingText: this.$t('device.list.loading'),
       deviceList: [],
-      countdownTime: 10,
+      countdownTime: 600,
       interval: null, // biến lưu trữ hàm setInterval
       isTimeUp: false,
     }
@@ -247,27 +245,28 @@ export default {
   },
   methods: {
     countdownTimer(row) {
-      if (this.interval) {
-        clearInterval(this.interval)
-        this.interval = null
-        this.countdownTime = 10
-        this.isTimeUp = false
-        return
+      // Kiểm tra xem thời gian đếm ngược đã bắt đầu chưa
+      if (!row.$interval) {
+        row.$countdownTime = this.countdownTime
+        row.$isTimeUp = false
+
+        // Bắt đầu đếm ngược
+        row.$interval = setInterval(() => {
+          // Giảm thời gian đi 1 giây
+          row.$countdownTime--
+
+          // Nếu thời gian bằng 0 thì dừng lại
+          if (row.$countdownTime === 0) {
+            clearInterval(row.$interval)
+            row.$interval = null
+            row.$countdownTime = this.countdownTime
+            row.$isTimeUp = true
+            this.$message.success('Đã hết thời gian')
+            // Thực hiện hành động khác khi hết thời gian
+            // Ví dụ: alert("Hết giờ!")
+          }
+        }, 1000)
       }
-      // Nếu không thì bắt đầu đếm ngược
-      this.interval = setInterval(() => {
-        // Giảm thời gian đi 1 giây
-        this.countdownTime--
-        // Nếu thời gian bằng 0 thì dừng lại
-        if (this.countdownTime === 0) {
-          clearInterval(this.interval)
-          this.interval = null
-          this.countdownTime = 10
-          this.isTimeUp = true
-          // Thực hiện hành động khác khi hết thời gian
-          // Ví dụ: alert("Hết giờ!")
-        }
-      }, 1000)
     },
     onStdout() {},
     handleConnect(...args) {
@@ -386,14 +385,10 @@ export default {
       // Truy cập this.$refs.playDialog trong callback $nextTick
         if (this.$refs.playDialog) {
           this.$refs.playDialog.show()
-          console.log('row: ', row.id)
         }
         else {
           console.error('this.$refs.playDialog is not available.')
         }
-
-        // Hết loading
-        row.$loading = false
       })
     },
     async handleMirror(row) {

@@ -6,10 +6,11 @@
     append-to-body
     destroy-on-close
     opened="handleDialogOpen"
+    @closed="handleClose"
   >
     <div class="h-full flex flex-col">
       <div class="text-red-500 text-sm pb-8 pl-4">
-        Bấm icon để chơi
+        Bấm vào hình để xem hướng dẫn
       </div>
       <div>
         <table class="w-full border">
@@ -29,14 +30,18 @@
           <tbody>
             <tr v-for="(app, index) in apps" :key="index" class="border-t">
               <td class="py-2 px-4 border">
-                <img :src="app.icon" alt="App Icon" class="w-12 h-12" @click="openApp(device, app.packageName)">
+                <el-button type="primary" icon="VideoPlay" @click="openApp(app.packageName)">
+                </el-button>
               </td>
               <td class="py-2 px-4 border">
                 <strong>{{ app.name }}</strong><br>
                 {{ app.description }}
               </td>
               <td class="text-right py-2 px-4 border">
-                <iframe width="100%" height="150" :src="getYouTubeEmbedUrl(app.video)" frameborder="0" allowfullscreen></iframe>
+                <video width="100%" height="150" controls :poster="app.icon">
+                  <source :src="app.video" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
               </td>
             </tr>
           </tbody>
@@ -68,18 +73,10 @@ export default {
       handler(newDevice, oldDevice) {
         // Reset the 'apps' array
         this.apps = []
-        console.log('new device', newDevice)
         // Fetch and update data based on the new device information
         this.fetchData(newDevice)
       },
     },
-  },
-  mounted() {
-    console.log('Component Con Mounted with Device:', this.$toRaw(this.device))
-  },
-  updated() {
-    console.log('Component Con Updated with Device:', this.$toRaw(this.device))
-    // Rest of the code...
   },
   methods: {
     async fetchData(device) {
@@ -92,7 +89,6 @@ export default {
         if (Array.isArray(appJson)) {
           const apps = await this.filterInstalledApps(appJson, device)
           this.apps = apps
-          console.log('Updated apps:', this.apps)
         }
         else {
           console.error('Invalid appJson format. Expected an array.')
@@ -110,7 +106,6 @@ export default {
 
       for (const app of appJson) {
         const isInstalled = await this.isAppInstalled(app.packageName)
-        console.log('isAppInstalled result:', isInstalled)
 
         if (isInstalled) {
           tempApps.push(app)
@@ -125,7 +120,6 @@ export default {
       }
       try {
         const result = await this.$adb.isInstalled(this.device.id, packageName)
-        console.log('result:', result)
 
         // Xử lý giá trị result ở đây, nó sẽ là giá trị được resolve từ Promise
         return result
@@ -145,7 +139,7 @@ export default {
         duration: 0,
       })
       // Thực hiện lệnh ADB để mở ứng dụng
-      this.$adb.runApp(this.device.id, { component: `${packageName}/.MainActivity` })
+      this.$adb.runApp(this.device.id, packageName)
         .then(() => {
           // Hiển thị thông báo thành công
           this.$message.success('Ứng dụng đã được mở thành công.')
@@ -170,6 +164,7 @@ export default {
     },
     handleClose() {
       this.visible = false
+      this.$props.device.$loading = false
     },
     getYouTubeEmbedUrl(videoUrl) {
       // Extract YouTube video ID from the URL

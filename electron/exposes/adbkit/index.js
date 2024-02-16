@@ -112,6 +112,28 @@ const connect = async (...params) => client.connect(...params)
 
 const disconnect = async (...params) => client.disconnect(...params)
 
+const getActivityName = async (pkg) => {
+  try {
+    const { stdout } = await shell(`shell cmd package resolve-activity --brief ${pkg}`)
+    const outputLines = stdout.trim().split('\n')
+    console.log(outputLines)
+    // Lọc dòng chứa "com"
+    const comLines = outputLines.filter(line => line.trim().startsWith('com'))
+    console.log(comLines)
+    if (comLines.length > 0) {
+      // Lấy tên activity từ dòng đầu tiên trong mảng
+      const activityName = comLines[0].trim()
+      return activityName;
+    } else {
+      console.error('Không tìm thấy dòng chứa "com" trong kết quả.')
+      return null;
+    }
+  } catch (error) {
+    console.error('Lỗi khi lấy tên Activity:', error.message)
+    throw error
+  }
+}
+
 const getDeviceIP = async (id) => {
   try {
     const { stdout } = await shell(`-s ${id} shell ip -f inet addr show wlan0`)
@@ -163,7 +185,11 @@ const screencap = async (deviceId, options = {}) => {
 }
 
 const install = async (id, path) => client.getDevice(id).install(path)
-const runApp = async (id, pkg) => client.getDevice(id).startActivity (pkg)
+const runApp = async (id, pkg) => {
+  const activityName = await getActivityName(pkg)
+  console.log(activityName)
+  return client.getDevice(id).startActivity({ component: `${activityName}` })
+}
 const isInstalled = async (id, pkg) => client.getDevice(id).isInstalled(pkg)
 
 const version = async () => client.version()
