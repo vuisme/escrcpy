@@ -86,11 +86,11 @@ export default {
   data() {
     return {
       controlModel: [
-        {
-          label: 'device.control.switch',
-          elIcon: 'Switch',
-          command: 'input keyevent --longpress ',
-        },
+        // {
+        //   label: 'device.control.switch',
+        //   elIcon: 'Switch',
+        //   command: 'input keyevent --longpress ',
+        // },
         {
           label: 'device.control.home',
           svgIcon: 'home',
@@ -117,29 +117,29 @@ export default {
           elIcon: 'RefreshLeft',
           command: 'reboot',
         },
-        {
-          label: 'device.control.install',
-          svgIcon: 'install',
-          component: 'AppInstall',
-        },
-        {
-          label: 'device.control.file.name',
-          svgIcon: 'file-send',
-          component: 'FileManage',
-        },
-        {
-          label: 'device.control.gnirehtet',
-          elIcon: 'Link',
-          component: 'Gnirehtet',
-          tips: 'device.control.gnirehtet.tips',
-        },
-        {
-          label: 'device.control.mirror-group.name',
-          svgIcon: 'multi-screen',
-          iconClass: '',
-          component: 'MirrorGroup',
-          tips: 'device.control.mirror-group.tips',
-        },
+        // {
+        //   label: 'device.control.install',
+        //   svgIcon: 'install',
+        //   component: 'AppInstall',
+        // },
+        // {
+        //   label: 'device.control.file.name',
+        //   svgIcon: 'file-send',
+        //   component: 'FileManage',
+        // },
+        // {
+        //   label: 'device.control.gnirehtet',
+        //   elIcon: 'Link',
+        //   component: 'Gnirehtet',
+        //   tips: 'device.control.gnirehtet.tips',
+        // },
+        // {
+        //   label: 'device.control.mirror-group.name',
+        //   svgIcon: 'multi-screen',
+        //   iconClass: '',
+        //   component: 'MirrorGroup',
+        //   tips: 'device.control.mirror-group.tips',
+        // },
       ],
     }
   },

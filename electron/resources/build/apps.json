@@ -1,0 +1,41 @@
+[
+      {
+        "packageName": "com.mrf.odders.shapeit",
+		"runName": "com.unity3d.player.UnityPlayerActivity",
+        "icon": "electron/resources/img/BodyCombat.png",
+        "name": "Les Mills Bodycombat",
+        "description": "Chương trình Body combat của Les Mills bao gồm các bài tập cardio và đốt mỡ giúp tăng cường sức khỏe tim mạch, sức bền và sức mạnh. Ngoài ra, chương trình này còn giúp phát triển sự linh hoạt và sự cân bằng của cơ thể. Các bài tập trong Body combat cũng sử dụng các động tác chống lại trọng lực, giúp tăng cường độ bền và khả năng kiểm soát cơ thể.",
+        "video": "electron/resources/video/BodyCombat.mp4"
+      },
+      {
+        "packageName": "com.beatgames.beatpaber",
+		"runName": "com.unity3d.player.UnityPlayerActivity",
+		"icon": "electron/resources/img/BeatSaber.webp",
+        "name": "Beat Saber",
+        "description": "Người chơi sẽ điều khiển 2 thanh kiếm (xanh và đỏ) và bắt đầu chém vào những khối lập phương đang tiến lại gần mình (tốc độ sẽ theo đổi dựa vào giai điệu của bài hát), ngăn không cho chúng có thể vượt ra phía sau của bạn, duy trì đến khi kết thúc bài nhạc là có thể giành chiến thắng.",
+        "video": "electron/resources/video/BeatSaber.mp4"
+      },
+{
+        "packageName": "com.holonautic.cybrix",
+		"runName": "com.unity3d.player.UnityPlayerActivity",
+        "icon": "electron/resources/img/Cybrix.webp",
+        "name": "Cybrix",
+        "description": "Tham gia trận đấu vợt tương lai đỉnh cao ngay trong phòng khách của bạn! Hãy thách thức bạn bè hoặc chơi một mình trong ba chế độ đa người kịch tính. Với thực tế ảo, biến không gian sống của bạn thành đấu trường hấp dẫn. Chinh phục chiến dịch đơn người để leo lên bảng xếp hạng và chứng minh khả năng của mình. Đặt ra thách thức cho bản thân bằng cách điều khiển vợt một cách chính xác, sử dụng súng laser với sự tinh tế, và thu thập power-up khi đồng thời tránh né viên bóng đặc biệt. Sẵn sàng để trở thành nhà vô địch trong trận chiến vợt tương lai chưa?",
+        "video": "electron/resources/video/Cybrix.mp4"
+      },
+{
+        "packageName": "com.halfbrick.fruitninjavr2",
+		"runName": "com.unity3d.player.UnityPlayerActivity",
+        "icon": "electron/resources/img/FruitNinjaVR2.webp",
+        "name": "Fruit Ninja 2",
+        "description": "Hóa thân thành một Ninja chuyên đi chém hoa quả với khoảng thời gian mỗi level là nhất định, có nhiều loại hoa quả khiến quả suýt xoa khi chúng đã được chém vô cùng tươi mát, khiến bạn ngây ngất. Có đủ các loại hoa quả cho bạn thưởng thức từ: dưa hấu, cam, dừa, kiwi, dứa, táo đến chanh leo, đu đủ tất cả đều có trong game chém hoa quả",
+        "video": "electron/resources/video/FruitNinjaVR2.mp4"
+      },
+      {
+        "packageName": "com.meta.curio.toybox",
+		"runName": "com.unity3d.player.UnityPlayerActivity",
+        "name": "First Encounters",
+        "description": "Khám phá thực tế hỗn hợp trên Meta Quest 3 với First Encounters. Bạn đang ở trên một hành tinh mới lạ và những kẻ phồng không gian phiền phức sắp tràn vào phòng bạn. Bắt càng nhiều càng tốt trước khi hết thời gian - kết hợp màu sắc để có điểm số cao!",
+        "video": "electron/resources/video/BeatSaber.mp4"
+      }
+]

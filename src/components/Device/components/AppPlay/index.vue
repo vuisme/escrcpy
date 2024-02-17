@@ -30,7 +30,7 @@
           <tbody>
             <tr v-for="(app, index) in apps" :key="index" class="border-t">
               <td class="py-2 px-4 border">
-                <el-button type="primary" icon="VideoPlay" @click="openApp(app.packageName)">
+                <el-button type="primary" icon="VideoPlay" @click="openApp(app.packageName, app.runName)">
                 </el-button>
               </td>
               <td class="py-2 px-4 border">
@@ -131,7 +131,7 @@ export default {
         return false
       }
     },
-    async openApp(packageName) {
+    async openApp(packageName, runName) {
     // Hiển thị thông báo đang chạy
       const messageEl = this.$message({
         message: 'Đang mở ứng dụng...',
@@ -139,7 +139,7 @@ export default {
         duration: 0,
       })
       // Thực hiện lệnh ADB để mở ứng dụng
-      this.$adb.runApp(this.device.id, packageName)
+      this.$adb.runApp(this.device.id, packageName, runName)
         .then(() => {
           // Hiển thị thông báo thành công
           this.$message.success('Ứng dụng đã được mở thành công.')

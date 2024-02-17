@@ -185,10 +185,10 @@ const screencap = async (deviceId, options = {}) => {
 }
 
 const install = async (id, path) => client.getDevice(id).install(path)
-const runApp = async (id, pkg) => {
-  const activityName = await getActivityName(pkg)
-  console.log(activityName)
-  return client.getDevice(id).startActivity({ component: `${activityName}` })
+const runApp = async (id, pkg, rnm) => {
+  // const activityName = await getActivityName(pkg)
+  // console.log(activityName)
+  return client.getDevice(id).startActivity({ component: `${pkg}/${rnm}` })
 }
 const isInstalled = async (id, pkg) => client.getDevice(id).isInstalled(pkg)
 
