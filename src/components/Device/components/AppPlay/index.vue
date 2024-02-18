@@ -38,7 +38,7 @@
                 {{ app.description }}
               </td>
               <td class="text-right py-2 px-4 border">
-                <iframe width="100%" height="150" :src="getYouTubeEmbedUrl(app.video)" frameborder="0" allowfullscreen></iframe>
+                <iframe width="300" height="150" :src="getYouTubeEmbedUrl(app.video)" frameborder="0" allowfullscreen></iframe>
               </td>
             </tr>
           </tbody>
