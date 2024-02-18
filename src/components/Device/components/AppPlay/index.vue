@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     v-model="visible"
-    title="Lựa game đi thằng L*n`"
+    title="DANH SÁCH GAME CÓ TRONG MÁY"
     width="800"
     append-to-body
     destroy-on-close
@@ -17,10 +17,10 @@
           <thead>
             <tr>
               <th class="w-16 py-2 px-4 border-r">
-                Icon
+                CHƠI
               </th>
               <th class="flex-1 py-2 px-4 border-r">
-                Name & Description
+                Thông tin trò chơi
               </th>
               <th class="text-right py-2 px-4">
                 Video
@@ -38,10 +38,7 @@
                 {{ app.description }}
               </td>
               <td class="text-right py-2 px-4 border">
-                <video width="100%" height="150" controls :poster="app.icon">
-                  <source :src="app.video" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
+                <iframe width="100%" height="150" :src="getYouTubeEmbedUrl(app.video)" frameborder="0" allowfullscreen></iframe>
               </td>
             </tr>
           </tbody>
