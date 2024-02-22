@@ -133,13 +133,13 @@ export default {
         //   component: 'Gnirehtet',
         //   tips: 'device.control.gnirehtet.tips',
         // },
-        // {
-        //   label: 'device.control.mirror-group.name',
-        //   svgIcon: 'multi-screen',
-        //   iconClass: '',
-        //   component: 'MirrorGroup',
-        //   tips: 'device.control.mirror-group.tips',
-        // },
+        {
+          label: 'device.control.mirror-group.name',
+          svgIcon: 'multi-screen',
+          iconClass: '',
+          component: 'MirrorGroup',
+          tips: 'device.control.mirror-group.tips',
+        },
       ],
     }
   },
