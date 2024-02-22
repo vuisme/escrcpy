@@ -292,7 +292,6 @@ export default {
           this.$t('device.reset.title'),
           {
             dangerouslyUseHTMLString: true,
-            confirmButtonText: this.$t('device.reset.confirm'),
             cancelButtonText: this.$t('device.reset.cancel'),
             closeOnClickModal: false,
             type: 'warning',
