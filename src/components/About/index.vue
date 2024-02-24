@@ -21,6 +21,13 @@
             : $t("about.update")
         }}
       </el-button>
+      <el-button
+        type="primary"
+        size="large"
+        @click="handleUpdateGames"
+      >
+        {{ $t("Cập nhật Game") }}
+      </el-button>
     </div>
 
     <div class="text-sm">
@@ -56,6 +63,32 @@ export default {
     this.onUpdateError()
   },
   methods: {
+    async handleUpdateGames() {
+      this.$confirm(
+        this.$t('Việc này cần có kết nối internet để tải về danh sách trò chơi mới'),
+        this.$t('Cập nhật danh sách Game mới'),
+        {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
+        },
+      ).then(async () => {
+        try {
+          const response = await fetch(
+            'https://raw.githubusercontent.com/vuisme/escrcpy/main/electron/resources/build/apps.json',
+          )
+          const data = await response.json()
+          console.log(data)
+          const jsonDataString = JSON.stringify(data)
+          console.log(jsonDataString)
+          this.$store.preference.setData({ appJson: jsonDataString })
+          this.$message.success(this.$t('Cập nhật danh sách trò chơi thành công. Chắc chắn rằng bạn đã cài đặt trò chơi mới'))
+        }
+        catch (error) {
+          console.error(error)
+          this.$message.error(this.$t('Có lỗi xảy ra'))
+        }
+      })
+    },
     handleUpdate() {
       this.loading = true
       this.$electron.ipcRenderer.send('check-for-update')

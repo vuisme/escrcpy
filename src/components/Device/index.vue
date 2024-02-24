@@ -99,20 +99,17 @@
               }}
             </el-button>
             <el-button
-              :loading="row.$loading"
               type="primary"
               text
               :disabled="row.$unauthorized"
-              :icon="row.$loading ? '' : 'Play'"
+              :icon="SwitchFilled"
               @click="openPlayDialog(row)"
             >
               {{
-                row.$loading
-                  ? 'Đóng'
-                  : 'Chơi Game'
+                'Chơi Game'
               }}
             </el-button>
-            <AppPlay v-if="row.$loading" ref="playDialog" :device="row" />
+            <AppPlay ref="playDialog" :device="row" />
 
             <el-button
               :loading="row.$loading"
@@ -350,8 +347,6 @@ export default {
         if (error.message) {
           this.$message.warning(error.message)
         }
-
-        this.handleReset()
       }
 
       row.$recordLoading = false
@@ -407,8 +402,6 @@ export default {
         if (error.message) {
           this.$message.warning(error.message)
         }
-
-        this.handleReset()
       }
       row.$loading = false
     },

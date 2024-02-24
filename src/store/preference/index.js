@@ -178,7 +178,6 @@ export const usePreferenceStore = defineStore({
       }
 
       const value = valueList.join(' ')
-
       console.log('getScrcpyArgs.value', value)
 
       return value

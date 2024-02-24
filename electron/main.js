@@ -10,7 +10,7 @@ import appStore from './helpers/store.js'
 import log from './helpers/log.js'
 import './helpers/console.js'
 
-import { icnsLogoPath, icoLogoPath, logoPath } from './configs/index.js'
+import { icnsLogoPath, icoLogoPath, logoPath, appJson } from './configs/index.js'
 
 import events from './events/index.js'
 

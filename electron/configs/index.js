@@ -15,6 +15,7 @@ export const devPublishPath = resolve('dev-publish.yml')
 export const logoPath = buildResolve('logo.png')
 export const icoLogoPath = buildResolve('logo.ico')
 export const icnsLogoPath = buildResolve('logo.icns')
+export const appJson = buildResolve('app.json')
 
 export const trayPath
   = process.platform === 'darwin'

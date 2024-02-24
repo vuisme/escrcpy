@@ -161,7 +161,6 @@ export default {
     },
     handleClose() {
       this.visible = false
-      this.$props.device.$loading = false
     },
     getYouTubeEmbedUrl(videoUrl) {
       // Extract YouTube video ID from the URL
