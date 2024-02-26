@@ -139,12 +139,10 @@ const getDeviceIP = async (id) => {
     const { stdout } = await shell(`-s ${id} shell ip -f inet addr show wlan0`)
     // console.log('stdout', stdout)
     const reg = /inet ([0-9.]+)\/\d+/
-    console.warn(reg)
     const match = stdout.match(reg)
-    console.warn('match :', match)
     const value = match[1]
-
-    console.warn('adbkit.getDeviceIP', value)
+    
+    console.log('adbkit.getDeviceIP', value)
     return value
   }
   catch (error) {
