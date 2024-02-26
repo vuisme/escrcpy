@@ -39,7 +39,7 @@ appStore.onDidChange('common.adbPath', async (value, oldValue) => {
 
 const shell = async (command) => {
   const execPath = appStore.get('common.adbPath') || adbPath
-  return exec(`${execPath} ${command}`, {
+  return exec(`"${execPath}" ${command}`, {
     env: { ...process.env },
     shell: true,
   })
@@ -277,7 +277,7 @@ export default () => {
   console.log('adb.binPath', binPath)
 
   client = Adb.createClient({
-    bin: binPath,
+    bin: binPath
   })
 
   console.log('client', client)
