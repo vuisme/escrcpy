@@ -408,7 +408,7 @@ export default {
     async handleWifi(row) {
       try {
         const host = await this.$adb.getDeviceIP(row.id)
-
+        console.warn('host :', host)
         if (!host) {
           throw new Error(this.$t('device.wireless.mode.error'))
         }
@@ -417,7 +417,7 @@ export default {
 
         await sleep()
 
-        console.log('host:port', `${host}:${port}`)
+        console.warn('host:port', `${host}:${port}`)
 
         this.handleConnect({
           host,
