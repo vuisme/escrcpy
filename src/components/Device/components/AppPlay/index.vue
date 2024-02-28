@@ -2,47 +2,47 @@
   <el-dialog
     v-model="visible"
     title="DANH SÁCH GAME CÓ TRONG MÁY"
-    width="800"
+    width="80%"
     append-to-body
     destroy-on-close
     opened="handleDialogOpen"
     @closed="handleClose"
   >
-    <div class="h-full flex flex-col">
-      <div class="text-red-500 text-sm pb-8 pl-4">
+    <div class="app-list">
+      <div class="intro-text">
         Bấm vào hình để xem hướng dẫn
       </div>
-      <div>
-        <table class="w-full border">
-          <thead>
-            <tr>
-              <th class="w-16 py-2 px-4 border-r">
-                CHƠI
-              </th>
-              <th class="flex-1 py-2 px-4 border-r">
-                Thông tin trò chơi
-              </th>
-              <th class="text-right py-2 px-4">
-                Video
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(app, index) in apps" :key="index" class="border-t">
-              <td class="py-2 px-4 border">
-                <el-button type="primary" icon="VideoPlay" @click="openApp(app.packageName, app.runName)">
-                </el-button>
-              </td>
-              <td class="py-2 px-4 border">
-                <strong>{{ app.name }}</strong><br>
-                {{ app.description }}
-              </td>
-              <td class="text-right py-2 px-4 border">
-                <iframe width="300" height="150" :src="getYouTubeEmbedUrl(app.video)" frameborder="0" allowfullscreen></iframe>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="filter-section">
+        <el-input v-model="filterName" placeholder="Filter by Name"></el-input>
+        <el-select v-model="filterComfort" placeholder="Filter by Comfort Level">
+          <el-option label="Thoải mái" value="Thoải mái">
+            Không chóng mặt
+          </el-option>
+          <el-option label="Chóng mặt nhẹ" value="Bình thường">
+            Chóng mặt nhẹ
+          </el-option>
+          <el-option label="Chóng mặt nhiều" value="Chóng mặt">
+            Chóng mặt nhiều
+          </el-option>
+          <!-- Add other comfort levels as needed -->
+        </el-select>
+      </div>
+      <div class="app-cards">
+        <el-card v-for="(app, index) in filteredApps" :key="index" class="app-card">
+          <div class="app-thumbnail">
+            <el-button type="warning" icon="VideoPlay" @click="openApp(app.packageName, app.runName)"></el-button>
+          </div>
+          <div class="app-info">
+            <strong>{{ app.name }}</strong>
+            <p>{{ app.description }}</p>
+          </div>
+          <div class="app-video">
+            <iframe width="100%" height="150" :src="getYouTubeEmbedUrl(app.video)" frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div :style="{ color: getComfortIconColor(app.comfort) }">
+            Độ thoải mái: {{ getComfortIcon(app.comfort) }}
+          </div>
+        </el-card>
       </div>
     </div>
   </el-dialog>
@@ -62,7 +62,19 @@ export default {
     return {
       apps: [], // This will be populated with data from the JSON file
       visible: false,
+      filterName: '', // New property for filtering by name
+      filterComfort: '', // New property for filtering by comfort level
     }
+  },
+  computed: {
+    filteredApps() {
+      return this.apps.filter((app) => {
+        // Apply filters based on filterName and filterComfort
+        const nameMatch = app.name.toLowerCase().includes(this.filterName.toLowerCase())
+        const comfortMatch = this.filterComfort ? app.comfort === this.filterComfort : true
+        return nameMatch && comfortMatch
+      })
+    },
   },
   watch: {
     device: {
@@ -175,8 +187,74 @@ export default {
       // Return the embedded YouTube video URL
       return videoId ? `https://www.youtube.com/embed/${videoId}` : ''
     },
+    getComfortIcon(comfort) {
+      // Map comfort levels to corresponding emojis
+      const comfortEmojiMap = {
+        'Thoải mái': '☻ Dễ chịu', // Black emoji for comfortable
+        'Bình thường': '☻ Bình thường', // Black emoji for moderate
+        'Chóng mặt': '☻ Khó chịu', // Black emoji for dizzy
+        // Add other comfort levels as needed
+      }
+      return comfortEmojiMap[comfort] || ''
+    },
+    getComfortIconColor(comfort) {
+      // Map comfort levels to corresponding colors
+      const comfortColorMap = {
+        'Thoải mái': 'green', // Green color for comfortable
+        'Bình thường': 'orange', // Orange color for moderate
+        'Chóng mặt': 'red', // Red color for dizzy
+        // Add other comfort levels as needed
+      }
+      return comfortColorMap[comfort] || ''
+    },
   },
 }
 </script>
 
-<style></style>
+<style scoped>
+  .app-list {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .intro-text {
+    color: #ff4d4f;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .app-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .app-card {
+    width: 300px;
+    margin: 10px;
+  }
+
+  .app-thumbnail img {
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .app-info {
+    padding: 15px;
+  }
+
+  .app-video {
+    margin-top: 10px;
+  }
+.comfortable {
+  color: green; /* Green color for comfortable */
+}
+
+.moderate {
+  color: orange; /* Orange color for moderate */
+}
+
+.dizzy {
+  color: red; /* Red color for dizzy */
+}
+</style>

@@ -115,6 +115,7 @@ const disconnect = async (...params) => client.disconnect(...params)
 const getActivityName = async (pkg) => {
   try {
     const { stdout } = await shell(`shell cmd package resolve-activity --brief ${pkg}`)
+    // lệnh khác: shell dumpsys activity activities | grep mActivityComponent
     const outputLines = stdout.trim().split('\n')
     console.log(outputLines)
     // Lọc dòng chứa "com"
