@@ -13,17 +13,11 @@
         Bấm vào hình để xem hướng dẫn
       </div>
       <div class="filter-section">
-        <el-input v-model="filterName" placeholder="Filter by Name"></el-input>
-        <el-select v-model="filterComfort" placeholder="Filter by Comfort Level">
-          <el-option label="Thoải mái" value="Thoải mái">
-            Không chóng mặt
-          </el-option>
-          <el-option label="Chóng mặt nhẹ" value="Bình thường">
-            Chóng mặt nhẹ
-          </el-option>
-          <el-option label="Chóng mặt nhiều" value="Chóng mặt">
-            Chóng mặt nhiều
-          </el-option>
+        <el-input v-model="filterName" placeholder="Tìm kiếm theo Tên"></el-input>
+        <el-select v-model="filterComfort" placeholder="Lọc theo Độ thoải mái">
+          <el-option label="Thoải mái" value="Thoải mái"></el-option>
+          <el-option label="Bình thường" value="Bình thường"></el-option>
+          <el-option label="Chóng mặt" value="Chóng mặt"></el-option>
           <!-- Add other comfort levels as needed -->
         </el-select>
       </div>
@@ -33,14 +27,15 @@
             <el-button type="warning" icon="VideoPlay" @click="openApp(app.packageName, app.runName)"></el-button>
           </div>
           <div class="app-info">
-            <strong>{{ app.name }}</strong>
+            <strong class="game-name">{{ app.name }}</strong>
             <p>{{ app.description }}</p>
+            <!-- Display the comfort level with emoji and color -->
+            <div class="comfort-icon" :style="{ background: getComfortIconColor(app.comfort) }">
+              {{ getComfortIcon(app.comfort) }}
+            </div>
           </div>
           <div class="app-video">
             <iframe width="100%" height="150" :src="getYouTubeEmbedUrl(app.video)" frameborder="0" allowfullscreen></iframe>
-          </div>
-          <div :style="{ color: getComfortIconColor(app.comfort) }">
-            Độ thoải mái: {{ getComfortIcon(app.comfort) }}
           </div>
         </el-card>
       </div>
@@ -223,6 +218,13 @@ export default {
     margin-bottom: 20px;
   }
 
+  .filter-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
   .app-cards {
     display: flex;
     flex-wrap: wrap;
@@ -232,29 +234,66 @@ export default {
   .app-card {
     width: 300px;
     margin: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .app-card:hover {
+    transform: scale(1.05);
   }
 
   .app-thumbnail img {
     width: 100%;
     cursor: pointer;
+    border-radius: 8px;
   }
 
   .app-info {
     padding: 15px;
   }
-
-  .app-video {
-    margin-top: 10px;
+  .game-name {
+    font-size: 18px; /* Adjust the font size as needed */
+    display: block;
+    margin-bottom: 10px;
   }
-.comfortable {
-  color: green; /* Green color for comfortable */
-}
+  .comfort-icon {
+    position: absolute;
+    top: -20px;
+    right: -60px;
+    padding: 2px 30px; /* Adjust padding as needed */
+    color: #fff;
+    font-size: 12px; /* Adjust font size as needed */
+    background: #3498db; /* Adjust background color as needed */
+    transform: rotate(45deg);
+    transform-origin: 0 0;
+  }
+  .comfort-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover; /* hiển thị toàn bộ background */
+    transform: rotate(45deg);
+    transform-origin: 0 0;
+    z-index: -1;
+    position: relative;
+    z-index: 1;
+  }
 
-.moderate {
-  color: orange; /* Orange color for moderate */
-}
+  /* Hàm để tạo linear gradient cho nền thoải mái */
+  .comfort-icon-background-green::before {
+    background: linear-gradient(135deg, #2ecc71 50%, transparent 50%);
+  }
 
-.dizzy {
-  color: red; /* Red color for dizzy */
-}
+  .comfort-icon-background-orange::before {
+    background: linear-gradient(135deg, #e67e22 50%, transparent 50%);
+  }
+
+  .comfort-icon-background-red::before {
+    background: linear-gradient(135deg, #e74c3c 50%, transparent 50%);
+  }
 </style>

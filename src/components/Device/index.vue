@@ -86,16 +86,16 @@
         >
           <template #default="{ row }">
             <el-select v-model="row.selectedTime" default-value="600">
-              <el-option label="10 phút" value="600"></el-option>
-              <el-option label="20 phút" value="1200"></el-option>
-              <el-option label="30 phút" value="1800"></el-option>
+              <el-option label="10 phút" value="780"></el-option>
+              <el-option label="20 phút" value="1380"></el-option>
+              <el-option label="30 phút" value="1980"></el-option>
             </el-select>
             <el-button
               type="danger"
               text
               :icon="row.$countdownTime ? '' : 'Timer'"
               :class="{ 'time-up': row.$isTimeUp }"
-              @click="countdownTimer(row, row.selectedTime); openPlayDialog(row)"
+              @click="countdownTimer(row, row.selectedTime)"
             >
               {{
                 row.$countdownTime
@@ -247,18 +247,31 @@ export default {
     this?.unAdbWatch?.()
   },
   methods: {
+    openPlayDialog(row) {
+      this.$nextTick(() => {
+      // Truy cập this.$refs.playDialog trong callback $nextTick
+        if (this.$refs.playDialog) {
+          this.$refs.playDialog.show()
+        }
+        else {
+          console.error('this.$refs.playDialog is not available.')
+        }
+      })
+    },
     countdownTimer(row, selectedTime) {
-      console.log('select time:', selectedTime)
-      if (selectedTime !== 'undefined') {
-        console.log('du ma may')
+      if (!row.selectedTime) {
+        this.$message.error('VUI LÒNG CHỌN THỜI GIAN TÍNH GIỜ')
         return
       }
+
+      console.log('select time:', row.selectedTime)
+      // ...
       // Kiểm tra xem thời gian đếm ngược đã bắt đầu chưa
       if (!row.$interval) {
         row.$countdownTime = selectedTime
         row.$isTimeUp = false
         row.$showPlayButton = true
-
+        this.openPlayDialog(row)
         // Bắt đầu đếm ngược
         row.$interval = setInterval(() => {
           // Giảm thời gian đi 1 giây
@@ -385,17 +398,6 @@ export default {
       catch (error) {
         console.warn(error)
       }
-    },
-    openPlayDialog(row) {
-      this.$nextTick(() => {
-      // Truy cập this.$refs.playDialog trong callback $nextTick
-        if (this.$refs.playDialog) {
-          this.$refs.playDialog.show()
-        }
-        else {
-          console.error('this.$refs.playDialog is not available.')
-        }
-      })
     },
     async handleMirror(row) {
       row.$loading = true
