@@ -138,6 +138,11 @@ export default {
       // Thực hiện lệnh ADB để mở ứng dụng
       this.$adb.runApp(this.device.id, packageName, runName)
         .then(() => {
+          const parent = this.$parent
+          if (parent && typeof parent.countdownTimer === 'function') {
+            // Gọi hàm `countdownTimer` của component cha
+            parent.countdownTimer(row) // Thêm row để truyền cho hàm trong component cha
+          }
           // Hiển thị thông báo thành công
           this.$message.success('Ứng dụng đã được mở thành công.')
           this.visible = false

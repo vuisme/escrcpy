@@ -85,28 +85,32 @@
           align="left"
         >
           <template #default="{ row }">
+            <el-select v-model="row.selectedTime" default-value="600">
+              <el-option label="10 phút" value="600"></el-option>
+              <el-option label="20 phút" value="1200"></el-option>
+              <el-option label="30 phút" value="1800"></el-option>
+            </el-select>
             <el-button
               type="danger"
               text
               :icon="row.$countdownTime ? '' : 'Timer'"
               :class="{ 'time-up': row.$isTimeUp }"
-              @click="countdownTimer(row)"
+              @click="countdownTimer(row, row.selectedTime); openPlayDialog(row)"
             >
               {{
                 row.$countdownTime
                   ? `Tính giờ: ${Math.floor(row.$countdownTime / 60)}:${row.$countdownTime % 60}`
-                  : 'Hết giờ'
+                  : 'Mở Trò Chơi'
               }}
             </el-button>
             <el-button
+              v-if="row.$showPlayButton"
               type="primary"
               text
-              :disabled="row.$unauthorized"
-              :icon="SwitchFilled"
               @click="openPlayDialog(row)"
             >
               {{
-                'Chơi Game'
+                'Chơi Game ᯅ'
               }}
             </el-button>
             <AppPlay ref="playDialog" :device="row" />
@@ -212,6 +216,8 @@ export default {
       countdownTime: 600,
       interval: null, // biến lưu trữ hàm setInterval
       isTimeUp: false,
+      showPlayButton: false,
+      selectedTime: 600,
     }
   },
   computed: {},
@@ -241,11 +247,17 @@ export default {
     this?.unAdbWatch?.()
   },
   methods: {
-    countdownTimer(row) {
+    countdownTimer(row, selectedTime) {
+      console.log('select time:', selectedTime)
+      if (selectedTime !== 'undefined') {
+        console.log('du ma may')
+        return
+      }
       // Kiểm tra xem thời gian đếm ngược đã bắt đầu chưa
       if (!row.$interval) {
-        row.$countdownTime = this.countdownTime
+        row.$countdownTime = selectedTime
         row.$isTimeUp = false
+        row.$showPlayButton = true
 
         // Bắt đầu đếm ngược
         row.$interval = setInterval(() => {
@@ -256,8 +268,9 @@ export default {
           if (row.$countdownTime === 0) {
             clearInterval(row.$interval)
             row.$interval = null
-            row.$countdownTime = this.countdownTime
+            row.$countdownTime = selectedTime
             row.$isTimeUp = true
+            row.$showPlayButton = false
             this.$message.success('Đã hết thời gian')
             // Thực hiện hành động khác khi hết thời gian
             // Ví dụ: alert("Hết giờ!")
@@ -374,7 +387,6 @@ export default {
       }
     },
     openPlayDialog(row) {
-      row.$loading = true
       this.$nextTick(() => {
       // Truy cập this.$refs.playDialog trong callback $nextTick
         if (this.$refs.playDialog) {
