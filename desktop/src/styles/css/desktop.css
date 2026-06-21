@@ -1,0 +1,33 @@
+html {
+  font-size: 14px !important;
+}
+
+.app-region-drag {
+  -webkit-app-region: drag !important;
+}
+
+.app-region-no-drag {
+  -webkit-app-region: no-drag !important;
+}
+
+.\*\:app-region-no-drag > * {
+  -webkit-app-region: no-drag !important;
+}
+
+/* Customize the appearance of the scroll bar */
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+*::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500 dark:bg-gray-300;
+}

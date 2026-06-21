@@ -1,0 +1,195 @@
+:root {
+  --el-color-primary: rgba(var(--color-primary), 1);
+  --el-color-primary-light-3: rgba(var(--color-primary-400), 1);
+  --el-color-primary-light-5: rgba(var(--color-primary-300), 1);
+  --el-color-primary-light-7: rgba(var(--color-primary-200), 1);
+  --el-color-primary-light-8: rgba(var(--color-primary-100), 1);
+  --el-color-primary-light-9: rgba(var(--color-primary-50), 1);
+  --el-color-primary-dark-2: rgba(var(--color-primary-600), 1);
+}
+
+:root.dark,
+.dark {
+  --el-color-primary: rgba(var(--color-primary-500), 1);
+  --el-color-primary-light-3: rgba(var(--color-primary-300), 1);
+  --el-color-primary-light-5: rgba(var(--color-primary-500), 1);
+  --el-color-primary-light-7: rgba(var(--color-primary-700), 1);
+  --el-color-primary-light-8: rgba(var(--color-primary-800), 1);
+  --el-color-primary-light-9: rgba(var(--color-primary-900), 1);
+  --el-color-primary-dark-2: rgba(var(--color-primary-400), 1);
+}
+
+.el-divider--plain .el-divider__text {
+  @apply !bg-gray-100 !dark:bg-gray-900;
+}
+
+.el-loading-mask {
+  @apply !bg-transparent;
+}
+
+.el-dialog--flex {
+  height: calc(100% - 20vh - 8px) !important;
+  @apply flex flex-col !my-[10vh];
+  .el-dialog__header,
+  .el-dialog__footer {
+    @apply flex-none;
+  }
+  .el-dialog__body {
+    @apply flex-1 !h-0;
+  }
+
+  &.is-fullscreen {
+    @apply !my-0 !h-full;
+  }
+}
+
+.el-dialog--headless {
+  .el-dialog__header,
+  .el-dialog__footer {
+    @apply !hidden;
+  }
+
+  .el-dialog__body {
+    @apply !p-0;
+  }
+}
+
+.el-dialog--beautify {
+  @apply !px-[8px] !pb-[8px] !border-none !bg-gray-100 !dark:bg-gray-900;
+  .el-dialog__title {
+    @apply relative;
+
+    &::before {
+      content: '';
+      @apply absolute inset-x-0 bottom-0 h-2 bg-primary-500/30;
+    }
+  }
+
+  .el-dialog__footer {
+    @apply min-h-8;
+  }
+}
+
+.el-dialog.is-fullscreen {
+  .el-dialog__header {
+    @apply !-mt-2;
+  }
+
+  .el-dialog__close {
+    -webkit-app-region: no-drag !important;
+  }
+}
+
+.el-segmented {
+  &.el-segmented--parent {
+    --el-border-radius-base: 6px;
+    --el-segmented-bg-color: transparent;
+    --el-segmented-item-selected-bg-color: var(--el-color-primary-light-9);
+    --el-segmented-item-selected-color: rgba(var(--color-primary-500), 1);
+  }
+
+  &.el-segmented--child {
+    --el-border-radius-base: 9999px;
+    --el-segmented-bg-color: transparent;
+    .el-segmented__item {
+      @apply py-[3px];
+    }
+  }
+}
+
+.el-collapse.el-collapse--beautify {
+  &,
+  .el-collapse-item__header,
+  .el-collapse-item__wrap {
+    @apply !border-0;
+  }
+
+  .el-collapse-item {
+    @apply !border !border-[--el-border-color-light] !rounded-xl;
+  }
+
+  .el-collapse-item__header {
+    @apply !rounded-t-xl;
+  }
+  .el-collapse-item__wrap {
+    @apply !rounded-b-xl;
+  }
+
+  .el-collapse-item__header,
+  .el-collapse-item__wrap {
+    @apply !dark:bg-[--el-bg-color-overlay];
+  }
+}
+
+.el-card.el-card--beautify {
+  @apply !rounded-xl;
+
+  .el-card__header {
+    @apply !py-4 !px-4 !border-none;
+  }
+}
+
+.el-switch.el-switch--theme {
+  .el-switch__action {
+    @apply !bg-gray-50 !text-gray-800;
+  }
+
+  .dark & {
+    .el-switch__core {
+      @apply !bg-gray-700 !border !border-gray-700;
+    }
+    .el-switch__action {
+      @apply !bg-gray-900 !text-gray-100;
+    }
+  }
+
+  &.el-switch--theme[plain] {
+    .el-switch__action,
+    .el-switch__core {
+      @apply !bg-transparent;
+    }
+
+    &.is-checked {
+      .el-switch__action {
+        @apply !text-primary-500;
+      }
+
+      .el-switch__core {
+        @apply !border !border-primary-500;
+      }
+    }
+  }
+}
+
+/* Adapt to custom title bars  */
+.el-message {
+  @apply !mt-8;
+}
+
+.el-table.el-table--beautify {
+  --el-table-header-bg-color: var(--el-bg-color-overlay) !important;
+  --el-table-tr-bg-color: var(--el-bg-color-overlay) !important;
+
+  @apply !scale-[1.004] bg-[var(--el-bg-color-overlay)] !rounded-xl !overflow-hidden;
+
+  .el-table__inner-wrapper::before {
+    @apply !bg-transparent;
+  }
+}
+
+.el-input--center.el-input {
+  & .el-input__inner {
+    @apply !text-center;
+  }
+}
+
+.el-radio-group.el-radio-group--block {
+  @apply flex;
+  .el-radio-button {
+    @apply flex-1 min-w-0;
+  }
+
+  .el-radio-button__inner {
+    @apply min-w-full text-center;
+  }
+}

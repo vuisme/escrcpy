@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "$/*": ["src/*"],
+      "$root/*": ["*"],
+      "$docs/*": ["docs/*"],
+      "$electron/*": ["electron/*"],
+      "$renderer/*": ["src/*"],
+      "$control/*": ["pages/control/*"],
+      "$explorer/*": ["pages/explorer/*"],
+      "$terminal/*": ["pages/terminal/*"]
+    },
+    "ignoreDeprecations": "6.0"
+  },
+  "vueCompilerOptions": {
+    "vitePressExtensions": [".md"]
+  },
+  "exclude": ["node_modules", "dist", "dist-electron", "dist-release"]
+}

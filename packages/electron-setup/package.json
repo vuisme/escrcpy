@@ -1,0 +1,46 @@
+{
+  "name": "@escrcpy/electron-setup",
+  "type": "module",
+  "version": "2.11.1",
+  "private": true,
+  "description": "A modular setup and runtime framework for Electron with plugins, window management, and contextual dependency injection.",
+  "author": "viarotel",
+  "homepage": "https://github.com/viarotel-org/escrcpy",
+  "sideEffects": false,
+  "exports": {
+    "./main": "./dist/main/index.mjs",
+    "./plugins": "./dist/plugins/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/main/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "plugins": [
+        "./dist/plugins/index.d.mts"
+      ]
+    }
+  },
+  "files": [
+    "README.md",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc",
+    "prepare": "pnpm run build",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "@escrcpy/electron-ipcx": "workspace:*",
+    "electron-store": "^10.0.0",
+    "es-toolkit": "^1.43.0",
+    "nanoid": "^5.0.7",
+    "unctx": "^2.4.0"
+  },
+  "devDependencies": {
+    "electron": "*",
+    "tsdown": "*",
+    "typescript": "*"
+  }
+}

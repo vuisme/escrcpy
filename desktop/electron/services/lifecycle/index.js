@@ -1,0 +1,117 @@
+import { app, BrowserWindow } from 'electron'
+import remote from '@electron/remote/main'
+import { optimizer } from '@electron-toolkit/utils'
+import { globalEventEmitter } from '$electron/helpers/emitter/index.js'
+import { ensureSingleInstance, injectExecuteArguments, parseExecuteArguments, restoreAndFocusWindow } from './helpers/index.js'
+import { resolveMainWindow } from '@escrcpy/electron-setup/main'
+
+export default {
+  name: 'service:lifecycle',
+  deps: ['module:main'],
+  apply(mainApp) {
+    const windowManager = mainApp.getWindowManager('main')
+
+    ensureSingleInstance({
+      onCreateWindow: openMainWindow,
+      onShowWindow: showMainWindow,
+    })
+
+    async function openMainWindow() {
+      windowManager.open({ show: false })
+
+      const mainWindow = await resolveMainWindow(mainApp)
+
+      if (!mainApp?.hasService?.('remote:initialized')) {
+        mainApp?.provide?.('remote:initialized', true)
+        remote.initialize()
+        remote.enable(mainWindow.webContents)
+      }
+
+      const args = runExecuteArguments(process.argv, mainWindow)
+
+      if (args.minimized) {
+        globalEventEmitter.emit('tray:create')
+        return false
+      }
+
+      mainWindow.show?.()
+    }
+
+    async function showMainWindow(commandLine) {
+      const mainWindow = await resolveMainWindow(mainApp)
+
+      const args = runExecuteArguments(commandLine, mainWindow)
+
+      if (!args['device-id']) {
+        restoreAndFocusWindow(mainWindow)
+      }
+    }
+
+    /**
+     * Enable keyboard shortcut monitoring for all windows
+     */
+    app.on('browser-window-created', (_, window) => {
+      optimizer.watchWindowShortcuts(window)
+    })
+
+    /**
+     * activate event (macOS)
+     * Restore window when clicking dock icon
+     */
+    app.on('activate', async () => {
+      // If no windows exist, let singleton plugin handle window creation
+      if (BrowserWindow.getAllWindows().length === 0) {
+        return
+      }
+
+      const mainWindow = await resolveMainWindow(mainApp)
+
+      restoreAndFocusWindow(mainWindow)
+    })
+
+    /**
+     * window-all-closed event
+     * Quit application when all windows are closed
+     */
+    app.on('window-all-closed', () => {
+      app.isQuiting = true
+      app.quit()
+    })
+
+    /**
+     * Run execute arguments handling
+     */
+    function runExecuteArguments(commandLine = '', mainWindow) {
+      try {
+        // Parse command line arguments
+        const args = parseExecuteArguments(commandLine)
+
+        if (!args) {
+          console.warn('[lifecycle] Failed to parse execute arguments')
+          return null
+        }
+
+        // Inject arguments into environment variables
+        injectExecuteArguments(args)
+
+        // Send IPC message to renderer process
+        if (mainWindow?.webContents && !mainWindow.isDestroyed?.()) {
+          mainWindow.webContents.send('execute-arguments-change', {
+            deviceId: args['device-id'],
+            appName: args['app-name'],
+            packageName: args['package-name'],
+            userId: args['user-id'],
+            activity: args.activity,
+            landscape: args.landscape,
+          })
+        }
+
+        return args
+      }
+      catch (error) {
+        console.error('[lifecycle] Failed to run execute arguments:', error?.message || error)
+        return null
+      }
+    }
+  },
+}

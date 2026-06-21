@@ -1,5 +1,4 @@
 # Logs
-logs
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -21,8 +20,16 @@ lerna-debug.log*
 # User
 node_modules
 pnpm-lock.yaml
+package-lock.json
+yarn.lock
 *.local
+*.d.ts
+**/.vitepress/cache
+.turbo
+
+# Dist
 dist
 dist-ssr
 dist-electron
 dist-release
+dist-docs

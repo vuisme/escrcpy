@@ -1,0 +1,38 @@
+{
+  "name": "@escrcpy/electron-ipcx",
+  "type": "module",
+  "version": "2.11.1",
+  "private": false,
+  "description": "A more intuitive electron ipc system with function proxy support",
+  "author": "viarotel",
+  "homepage": "https://github.com/viarotel-org/escrcpy",
+  "sideEffects": false,
+  "exports": {
+    "./main": "./dist/main/index.mjs",
+    "./renderer": "./dist/renderer/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/main/index.d.ts",
+  "files": [
+    "README.md",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc",
+    "test": "vitest",
+    "prepare": "pnpm run build",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "es-toolkit": "^1.43.0",
+    "nanoid": "^5.0.7"
+  },
+  "devDependencies": {
+    "electron": "*",
+    "tsdown": "*",
+    "typescript": "*",
+    "vitest": "^2.1.5"
+  }
+}

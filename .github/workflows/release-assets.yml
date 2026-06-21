@@ -1,72 +1,75 @@
 name: release-assets
 
 on:
+  workflow_dispatch:
   push:
     tags:
-      - v*.*.*
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   release:
     runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
         include:
           - os: ubuntu-latest
-            arch: [arm64, amd64]
+            platform: linux
+            build_command: build:linux
           - os: macos-latest
-            arch: [arm64, amd64]
+            platform: mac
+            build_command: build:mac
           - os: windows-latest
-            arch: [arm64, amd64]
+            platform: win
+            build_command: build:win
+    env:
+      VITE_GITEE_APP_TOKEN: ${{ secrets.VITE_GITEE_APP_TOKEN }}
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
-          node-version: 18
+          node-version: 24
+
+      - name: Enable corepack and pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.29.2 --activate
 
       - name: Install Dependencies
-        run: npm install
+        run: pnpm install
 
-      - name: build-linux
-        if: matrix.os == 'ubuntu-latest'
-        run: npm run build:linux
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Install Flatpak toolchain (Linux)
+        if: matrix.platform == 'linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak flatpak-builder libudev-dev
+          flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          flatpak --user install -y --noninteractive flathub org.freedesktop.Platform//23.08 org.freedesktop.Sdk//23.08 org.electronjs.Electron2.BaseApp//23.08
 
-      - name: build-mac
-        if: matrix.os == 'macos-latest'
-        run: npm run build:mac
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Build ${{ matrix.platform }}
+        run: pnpm ${{ matrix.build_command }}
 
-      - name: build-win
-        if: matrix.os == 'windows-latest'
-        run: npm run build:win
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
-      - name: release
-        uses: softprops/action-gh-release@v1
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
         with:
-          draft: true
-          prerelease: true
+          draft: false
+          prerelease: false
           fail_on_unmatched_files: false
           files: |
-            dist-release/*.exe
-            dist-release/*.zip
-            dist-release/*.dmg
-            dist-release/*.AppImage
-            dist-release/*.snap
-            dist-release/*.deb
-            dist-release/*.rpm
-            dist-release/*.tar.gz
-            dist-release/*.blockmap
-            dist-release/latest.yml
-            dist-release/latest-mac.yml
-            dist-release/latest-linux.yml
-            dist-release/latest-linux-arm64.yml
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+            desktop/dist-release/*.exe
+            desktop/dist-release/*.zip
+            desktop/dist-release/*.dmg
+            desktop/dist-release/*.AppImage
+            desktop/dist-release/*.flatpak
+            desktop/dist-release/*.snap
+            desktop/dist-release/*.deb
+            desktop/dist-release/*.rpm
+            desktop/dist-release/*.tar.gz
+            desktop/dist-release/*.blockmap
+            desktop/dist-release/latest*.yml
