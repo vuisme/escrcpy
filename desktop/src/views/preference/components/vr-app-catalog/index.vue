@@ -1,29 +1,29 @@
 <template>
-  <section class="catalog-console">
+  <section class="catalog-console" :class="{ 'is-standalone': standalone }">
     <div class="catalog-header">
       <div>
         <div class="catalog-kicker">
-          App Library
+          {{ $t('tvr.catalog.kicker') }}
         </div>
-        <h3>Kho ứng dụng VR</h3>
-        <p>Quản lý danh sách app hiển thị trong VR Apps và nhập nhanh từ thiết bị đang kết nối.</p>
+        <h3>{{ $t('tvr.catalog.title') }}</h3>
+        <p>{{ $t('tvr.catalog.subtitle') }}</p>
       </div>
 
       <div class="catalog-actions">
         <el-button :icon="Plus" @click="addBlankApp">
-          Thêm app
+          {{ $t('tvr.catalog.add') }}
         </el-button>
         <el-button type="primary" :icon="Search" @click="openScanner">
-          Quét từ máy
+          {{ $t('tvr.catalog.scan') }}
         </el-button>
         <el-button :icon="RefreshRight" @click="resetCatalog">
-          Reset
+          {{ $t('preferences.config.reset.name') }}
         </el-button>
       </div>
     </div>
 
     <div class="catalog-table">
-      <el-table :data="apps" row-key="packageName" max-height="420">
+      <el-table :data="apps" row-key="packageName" :max-height="standalone ? undefined : 420">
         <el-table-column type="expand">
           <template #default="{ row }">
             <div class="catalog-detail">
@@ -108,7 +108,7 @@
 
     <el-dialog
       v-model="scannerVisible"
-      title="Quét ứng dụng từ thiết bị"
+      :title="$t('tvr.catalog.scanDialogTitle')"
       width="820px"
       append-to-body
       destroy-on-close
@@ -120,7 +120,7 @@
             v-model="scanDeviceId"
             class="!w-[320px]"
             filterable
-            placeholder="Chọn thiết bị đang kết nối"
+            :placeholder="$t('tvr.catalog.devicePlaceholder')"
           >
             <el-option
               v-for="device of connectableDevices"
@@ -134,11 +134,11 @@
             v-model="scanKeyword"
             class="!w-[260px]"
             clearable
-            placeholder="Tìm tên hoặc package"
+            :placeholder="$t('tvr.catalog.searchPlaceholder')"
           />
 
           <el-button type="primary" :loading="scanning" :icon="Search" @click="scanDeviceApps">
-            Quét
+            {{ $t('tvr.catalog.scan') }}
           </el-button>
         </div>
 
@@ -163,7 +163,7 @@
                 :loading="importingPackage === row.packageName"
                 @click="importScannedApp(row)"
               >
-                Nhập
+                {{ $t('common.import') }}
               </el-button>
             </template>
           </el-table-column>
@@ -184,6 +184,13 @@ import {
   resetStoredVrApps,
   setStoredVrApps,
 } from '$/utils/vr-app-catalog/index.js'
+
+defineProps({
+  standalone: {
+    type: Boolean,
+    default: false,
+  },
+})
 
 const deviceStore = useDeviceStore()
 
@@ -237,7 +244,7 @@ function removeApp(index) {
 
 async function resetCatalog() {
   try {
-    await ElMessageBox.confirm('Đưa kho ứng dụng VR về danh sách mặc định?', 'Reset kho ứng dụng', {
+    await ElMessageBox.confirm(window.t('tvr.catalog.resetConfirm'), window.t('tvr.catalog.resetTitle'), {
       type: 'warning',
     })
   }
@@ -262,7 +269,7 @@ async function prepareScanner() {
 
 async function scanDeviceApps() {
   if (!scanDeviceId.value) {
-    ElMessage.warning('Chưa chọn thiết bị để quét')
+    ElMessage.warning(window.t('tvr.catalog.noDevice'))
     return
   }
 
@@ -309,7 +316,7 @@ async function importScannedApp(app) {
     }
 
     saveCatalog()
-    ElMessage.success(`Đã nhập ${nextApp.name}`)
+    ElMessage.success(window.t('tvr.catalog.imported', { name: nextApp.name }))
   }
   finally {
     importingPackage.value = ''
@@ -326,6 +333,13 @@ async function importScannedApp(app) {
   background:
     linear-gradient(135deg, rgba(2, 6, 23, 0.74), rgba(8, 47, 73, 0.44)),
     radial-gradient(circle at 92% 10%, rgba(34, 211, 238, 0.12), transparent 26%);
+}
+
+.catalog-console.is-standalone {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
 }
 
 .catalog-header {
@@ -368,7 +382,13 @@ async function importScannedApp(app) {
 }
 
 .catalog-table {
+  min-height: 0;
   padding: 12px;
+}
+
+.catalog-console.is-standalone .catalog-table {
+  flex: 1;
+  overflow: auto;
 }
 
 .catalog-detail {
@@ -399,5 +419,16 @@ async function importScannedApp(app) {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+@media (max-width: 760px) {
+  .catalog-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .catalog-actions {
+    justify-content: flex-start;
+  }
 }
 </style>

@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.0.0](https://github.com/vuisme/escrcpy/releases/tag/v2.0.0) (2026-06-23)
+
+### Features
+
+* Added TheVisionReality branding and VR-oriented UI layout.
+* Added Quest streaming presets for Full View, Quest 2 16x9, Quest 3 16x9, Quest 3 9x16, and Quest 3 1x1.
+* Added a dedicated VR App Catalog page with connected-device app scanning.
+* Added dynamic installed-app icon fetching for the VR Apps menu.
+
+### Bug Fixes
+
+* Fixed Quest preset crop behavior by restoring physical-resolution presets after the Electron command path issue was resolved.
+* Fixed header quick tools overlapping Windows titlebar controls by moving them to a centered header slot.
+
+### UI
+
+* Reworked the main app layout, device cards, control buttons, header controls, and Vietnamese labels for the VR workflow.
+* Removed the old raw JSON app-list setting now that the VR App Catalog has a dedicated UI.
+
 ## [2.11.1](https://github.com/viarotel/escrcpy-x/compare/v2.11.0...v2.11.1) (2026-05-19)
 
 

@@ -4,7 +4,7 @@
 
     <el-dialog
       v-model="visible"
-      title="Danh sách game có trong máy"
+      :title="$t('tvr.vrApps.title')"
       width="86%"
       append-to-body
       destroy-on-close
@@ -14,16 +14,16 @@
         <div class="flex gap-3 flex-wrap items-center">
           <el-input
             v-model="filterName"
-            class="!w-[260px]"
+            class="vr-filter-control"
             clearable
-            placeholder="Tìm kiếm theo tên"
+            :placeholder="$t('tvr.vrApps.searchPlaceholder')"
           />
 
           <el-select
             v-model="filterComfort"
-            class="!w-[220px]"
+            class="vr-filter-control"
             clearable
-            placeholder="Lọc theo độ thoải mái"
+            :placeholder="$t('tvr.vrApps.comfortPlaceholder')"
           >
             <el-option label="Thoải mái" value="Thoải mái" />
             <el-option label="Bình thường" value="Bình thường" />
@@ -76,7 +76,7 @@
                   :loading="startingPackage === app.packageName"
                   @click="openApp(app)"
                 >
-                  Mở game
+                  {{ $t('tvr.vrApps.openGame') }}
                 </el-button>
 
                 <el-button
@@ -84,7 +84,7 @@
                   :icon="VideoPlay"
                   @click="previewVideo(app)"
                 >
-                  Video
+                  {{ $t('tvr.vrApps.video') }}
                 </el-button>
               </div>
             </div>
@@ -97,7 +97,7 @@
 
     <el-dialog
       v-model="videoVisible"
-      :title="activeVideoApp?.name || 'Video'"
+      :title="activeVideoApp?.name || $t('tvr.vrApps.video')"
       width="720px"
       append-to-body
       destroy-on-close
@@ -112,7 +112,7 @@
 
       <div v-else class="flex justify-center">
         <el-button type="primary" :icon="VideoPlay" @click="openExternalVideo">
-          Mở video giới thiệu
+          {{ $t('tvr.vrApps.openVideo') }}
         </el-button>
       </div>
     </el-dialog>
@@ -295,6 +295,10 @@ function getComfortLabel(value) {
   overflow: hidden;
 }
 
+.vr-filter-control {
+  width: 260px;
+}
+
 .vr-app-cover {
   height: 160px;
   overflow: hidden;
@@ -324,5 +328,11 @@ function getComfortLabel(value) {
   width: 100%;
   max-height: 70vh;
   background: #000;
+}
+
+@media (max-width: 720px) {
+  .vr-filter-control {
+    width: 100%;
+  }
 }
 </style>

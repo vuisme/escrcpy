@@ -3,20 +3,20 @@
     <section class="device-hero flex-none">
       <div class="min-w-0">
         <div class="hero-kicker">
-          VR Device Matrix
+          {{ $t('tvr.device.kicker') }}
         </div>
         <div class="hero-title">
           {{ connectedCount }}/{{ deviceList.length }} {{ $t('device.list') }}
         </div>
         <div class="hero-sub">
-          Wireless, mirror, record and Quest presets in one command surface.
+          {{ $t('tvr.device.subtitle') }}
         </div>
       </div>
 
       <div class="hero-metrics">
         <div class="metric-tile">
           <span>{{ connectedCount }}</span>
-          <small>Online</small>
+          <small>{{ $t('tvr.device.online') }}</small>
         </div>
         <div class="metric-tile">
           <span>{{ wirelessCount }}</span>
@@ -24,7 +24,7 @@
         </div>
         <div class="metric-tile">
           <span>{{ selectionRows.length }}</span>
-          <small>Selected</small>
+          <small>{{ $t('tvr.device.selected') }}</small>
         </div>
       </div>
     </section>
@@ -414,7 +414,7 @@ watch(deviceList, () => {
 
 .device-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(390px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 390px), 1fr));
   gap: 12px;
 }
 
@@ -593,6 +593,27 @@ watch(deviceList, () => {
 
   100% {
     transform: translateY(100%);
+  }
+}
+
+@media (max-width: 720px) {
+  .device-hero {
+    align-items: stretch;
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .hero-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .metric-tile {
+    min-width: 0;
+    padding: 10px 8px;
+  }
+
+  .hero-title {
+    font-size: 24px;
   }
 }
 </style>

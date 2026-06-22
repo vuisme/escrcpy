@@ -1,6 +1,6 @@
 <template>
   <div
-    class="control-deck flex group overflow-hidden"
+    class="control-deck flex group"
   >
     <el-button
       type="primary"
@@ -16,11 +16,16 @@
       </el-icon>
     </el-button>
 
-    <Scrollable ref="scrollableRef" class="flex-1 min-w-0" disabled-drag>
+    <Scrollable
+      ref="scrollableRef"
+      class="control-scrollable flex-1 min-w-0"
+      content-class="control-scroll-content"
+      disabled-drag
+    >
       <Swapy
         :key="controlStore.swapyKey"
         :enabled="swapyEnabled"
-        class="flex items-center"
+        class="control-strip flex items-center"
         :class="floating ? '!h-full' : ''"
         :config="{ animation: 'dynamic', dragAxis: 'x', autoScrollOnDrag: false }"
         @swap-end="onSwapEnd"
@@ -308,10 +313,31 @@ export default {
 .control-deck {
   position: relative;
   margin: 0 12px 12px;
-  padding: 6px;
+  padding: 14px 8px 10px;
+  overflow: visible;
   border: 1px solid rgba(34, 211, 238, 0.14);
   border-radius: 8px;
   background: rgba(2, 6, 23, 0.44);
+}
+
+:deep(.control-strip) {
+  gap: 10px;
+  padding: 0 4px;
+  overflow: visible;
+}
+
+:deep(.control-scrollable) {
+  padding: 16px 4px 12px;
+  margin: -12px -4px -10px;
+}
+
+:deep(.control-scroll-content) {
+  gap: 10px;
+  align-items: center;
+}
+
+:deep(.control-strip > *) {
+  margin: 0 !important;
 }
 
 .control-deck::before {
@@ -332,20 +358,31 @@ export default {
   display: flex !important;
   flex-direction: column;
   gap: 2px;
-  min-width: 52px;
+  min-width: 54px;
+  padding: 0 8px !important;
   border: 1px solid rgba(34, 211, 238, 0.18) !important;
   border-radius: 7px !important;
   background: linear-gradient(145deg, rgba(15, 23, 42, 0.74), rgba(8, 47, 73, 0.54)) !important;
   color: #bae6fd !important;
-  box-shadow: none !important;
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.02),
+    0 0 14px rgba(34, 211, 238, 0.08) !important;
+  transition:
+    border-color 140ms ease,
+    background 140ms ease,
+    box-shadow 140ms ease,
+    transform 140ms ease;
 }
 
 :deep(.control-command:hover) {
   z-index: 2;
-  transform: translateY(-1px);
+  transform: translateY(-4px);
   border-color: rgba(34, 211, 238, 0.76) !important;
   background: linear-gradient(145deg, rgba(8, 145, 178, 0.54), rgba(37, 99, 235, 0.46)) !important;
-  box-shadow: 0 0 20px rgba(34, 211, 238, 0.22) !important;
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.22),
+    0 0 18px rgba(34, 211, 238, 0.28),
+    0 0 32px rgba(59, 130, 246, 0.2) !important;
 }
 
 :deep(.control-command .el-icon),
@@ -356,7 +393,7 @@ export default {
 :deep(.control-command.is-icon-only) {
   justify-content: center;
   align-items: center;
-  min-width: 48px;
+  min-width: 50px;
 }
 
 :deep(.control-command.is-icon-only .el-icon),

@@ -3,19 +3,19 @@
     <section class="preference-hero flex-none">
       <div class="min-w-0">
         <div class="hero-kicker">
-          VR Stream Presets
+          {{ $t('tvr.preference.kicker') }}
         </div>
         <div class="hero-title">
           {{ $t('preferences.name') }}
         </div>
         <div class="hero-sub">
-          Tune Quest crop, bitrate, codec and device behavior from a focused control panel.
+          {{ $t('tvr.preference.subtitle') }}
         </div>
       </div>
 
       <div class="scope-panel">
         <div class="scope-label">
-          Scope
+          {{ $t('tvr.preference.scope') }}
         </div>
         <ScopeSelect
           v-model="deviceScope"
@@ -44,8 +44,6 @@
         }"
       >
       </PreferenceForm>
-
-      <VrAppCatalog />
     </div>
   </div>
 </template>
@@ -55,7 +53,6 @@ import { debounce } from 'lodash-es'
 
 import PreferenceForm from '$/components/preference-form/index.vue'
 import ScopeSelect from './components/scope-select/index.vue'
-import VrAppCatalog from './components/vr-app-catalog/index.vue'
 
 const preferenceStore = usePreferenceStore()
 const themeStore = useThemeStore()
@@ -250,6 +247,18 @@ function _handleSave() {
 .preference-body {
   overflow: auto;
   padding-right: 4px;
+}
+
+@media (max-width: 900px) {
+  .preference-hero {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .config-actions {
+    grid-template-columns: repeat(4, 42px);
+    justify-content: start;
+  }
 }
 
 :deep(.el-collapse) {

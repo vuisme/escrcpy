@@ -1,39 +1,56 @@
 <template>
-  <div class="quick-deck relative z-10 flex items-center gap-2 *:app-region-no-drag">
-    <component
-      :is="item.component || 'div'"
-      v-for="item in actionModel"
-      :key="item.label"
-      class="flex-none"
-      v-bind="{
-        ...(item.command
-          ? {
-            onClick: () => handleCommand(item),
-          }
-          : {}),
-      }"
+  <div
+    class="quick-deck relative z-10 flex items-center gap-2 *:app-region-no-drag"
+    :class="{ 'is-collapsible': collapsible }"
+  >
+    <el-button
+      class="quick-command quick-expand"
+      :title="$t('tvr.quickBar.expand')"
+      circle
+      borderless
+      text
     >
-      <template #default="{ trigger, ...slotProps } = {}">
-        <el-button
-          class="quick-command"
-          v-bind="{
-            title: $t(item.tips || item.label),
-            circle: true,
-            borderless: true,
-            text: true,
-            ...slotProps,
-            ...(trigger ? { onClick: trigger } : {}),
-          }"
-        >
-          <template #icon>
-            <el-icon v-if="item.elIcon" :class="item.iconClass">
-              <component :is="item.elIcon" />
-            </el-icon>
-            <i v-else-if="item.fontIcon" :class="item.fontIcon"></i>
-          </template>
-        </el-button>
+      <template #icon>
+        <i class="i-bi-arrows-angle-expand"></i>
       </template>
-    </component>
+    </el-button>
+
+    <div class="quick-actions flex items-center gap-2">
+      <component
+        :is="item.component || 'div'"
+        v-for="item in actionModel"
+        :key="item.label"
+        class="flex-none"
+        v-bind="{
+          ...(item.command
+            ? {
+              onClick: () => handleCommand(item),
+            }
+            : {}),
+        }"
+      >
+        <template #default="{ trigger, ...slotProps } = {}">
+          <el-button
+            class="quick-command"
+            v-bind="{
+              title: $t(item.tips || item.label),
+              circle: true,
+              borderless: true,
+              text: true,
+              ...slotProps,
+              ...(trigger ? { onClick: trigger } : {}),
+            }"
+          >
+            <template #icon>
+              <el-icon v-if="item.elIcon" :class="item.iconClass">
+                <component :is="item.elIcon" />
+              </el-icon>
+              <i v-else-if="item.fontIcon" :class="item.fontIcon"></i>
+            </template>
+          </el-button>
+        </template>
+      </component>
+    </div>
   </div>
 </template>
 
@@ -45,7 +62,12 @@ import Search from './components/search/index.vue'
 import Schedule from './components/schedule/index.vue'
 import Terminal from './components/terminal/index.vue'
 
-const props = defineProps({})
+const props = defineProps({
+  collapsible: {
+    type: Boolean,
+    default: false,
+  },
+})
 
 const actionModel = [
   {
@@ -91,6 +113,14 @@ function handleCommand() {}
   background: rgba(2, 6, 23, 0.46);
 }
 
+.quick-actions {
+  min-width: 0;
+}
+
+.quick-expand {
+  display: none !important;
+}
+
 :deep(.quick-command) {
   width: 38px;
   height: 38px;
@@ -104,5 +134,20 @@ function handleCommand() {}
   transform: translateY(-1px);
   border-color: rgba(34, 211, 238, 0.78) !important;
   background: linear-gradient(135deg, rgba(8, 145, 178, 0.58), rgba(37, 99, 235, 0.5)) !important;
+}
+
+@media (max-width: 980px) {
+  .quick-deck.is-collapsible:not(:hover):not(:focus-within) .quick-actions {
+    display: none;
+  }
+
+  .quick-deck.is-collapsible .quick-expand {
+    display: inline-flex !important;
+  }
+
+  .quick-deck.is-collapsible:hover .quick-expand,
+  .quick-deck.is-collapsible:focus-within .quick-expand {
+    display: none !important;
+  }
 }
 </style>

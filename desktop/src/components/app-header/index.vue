@@ -3,12 +3,16 @@
     :class="[
       {
         'pl-20': $platform.is('macos') && !controlProps.custom,
-        'pr-[calc(70px+3.6vw)]': $platform.is('windows', 'linux') || controlProps.custom,
+        'pr-[150px]': $platform.is('windows', 'linux') || controlProps.custom,
       },
     ]"
     class="app-header app-region-drag flex items-center"
   >
     <div class="app-header-glow"></div>
+
+    <div v-if="$slots.center" class="app-header-center">
+      <slot name="center"></slot>
+    </div>
 
     <div v-if="title || deviceName || $slots['device-name']" class="relative z-1 flex-none flex items-center gap-4 overflow-hidden">
       <div v-if="title" class="max-w-96 truncate pl-1 text-sm font-semibold select-none" :title="title">
@@ -28,7 +32,7 @@
       <slot name="default"></slot>
     </div>
 
-    <div v-if="$slots.right" class="relative z-1 flex-none">
+    <div v-if="$slots.right" class="app-header-right relative z-1 flex-none">
       <slot name="right"></slot>
     </div>
 
@@ -62,6 +66,7 @@ const props = defineProps({
 
 <style lang="postcss" scoped>
 .app-header {
+  position: relative;
   min-height: 68px;
   padding: 10px 14px;
   overflow: hidden;
@@ -95,5 +100,50 @@ const props = defineProps({
   height: 80px;
   transform: skewX(-18deg);
   background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.18), transparent);
+}
+
+.app-header-center {
+  position: absolute;
+  top: 50%;
+  right: 158px;
+  left: 240px;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.app-header-right {
+  max-width: min(48vw, 320px);
+  overflow: hidden;
+}
+
+@media (max-width: 1060px) {
+  .app-header-center {
+    left: 190px;
+  }
+}
+
+@media (max-width: 760px) {
+  .app-header {
+    min-height: 78px;
+    align-items: flex-start;
+  }
+
+  .app-header-center {
+    top: auto;
+    right: 154px;
+    bottom: 10px;
+    left: 14px;
+    justify-content: flex-end;
+    transform: none;
+  }
+
+  .app-header-right {
+    max-width: 190px;
+    margin-top: 18px;
+  }
 }
 </style>

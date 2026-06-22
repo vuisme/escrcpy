@@ -155,20 +155,6 @@ export default {
         rows: 1,
       },
     },
-    appList: {
-      label: 'Danh sách Ứng Dụng',
-      field: 'appJson',
-      value: undefined,
-      type: 'Input',
-      placeholder: 'Json chứa danh sách',
-      tips: 'Json chứa danh sách',
-      span: 24,
-      props: {
-        type: 'textarea',
-        autosize: true,
-        rows: 4,
-      },
-    },
     gnirehtetAppend: {
       label: 'preferences.common.gnirehtet.append.name',
       field: 'gnirehtetAppend',

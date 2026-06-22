@@ -1,17 +1,17 @@
 <template>
-  <div class="flex items-center fixed !space-x-2 top-0 right-0 pt-2 px-2 z-1500 *:app-region-no-drag" :class="background ? 'bg-gray-50 dark:bg-gray-900' : ''">
-    <el-button text plain circle class="!hover:bg-gray-200 !active:bg-gray-300 !hover:dark:bg-gray-800 !active:dark:bg-gray-700" @click="onMinimizeClick">
+  <div class="app-controls *:app-region-no-drag" :class="background ? 'has-background' : ''">
+    <el-button text plain circle class="app-control-button" :title="$t('window.minimize')" @click="onMinimizeClick">
       <template #icon>
         <i class="i-ph-minus"></i>
       </template>
     </el-button>
-    <el-button text plain circle class="!hover:bg-gray-200 !active:bg-gray-300 !hover:dark:bg-gray-800 !active:dark:bg-gray-700" @click="onMaximizeClick">
+    <el-button text plain circle class="app-control-button" :title="$t(maximized ? 'window.restore' : 'window.maximize')" @click="onMaximizeClick">
       <template #icon>
         <i v-if="maximized" class="i-ph-copy-simple"></i>
         <i v-else class="i-ph-square"></i>
       </template>
     </el-button>
-    <el-button text plain circle class="!hover:text-white !hover:bg-red-500 !active:bg-red-400" @click="onCloseClick">
+    <el-button text plain circle class="app-control-button is-close" :title="$t('window.close')" @click="onCloseClick">
       <template #icon>
         <i class="i-ph-x"></i>
       </template>
@@ -58,5 +58,40 @@ function onCloseClick() {
 }
 </script>
 
-<style>
+<style lang="postcss" scoped>
+.app-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px;
+  border: 1px solid rgba(34, 211, 238, 0.14);
+  border-radius: 8px;
+  background: rgba(2, 6, 23, 0.36);
+  backdrop-filter: blur(12px);
+}
+
+.app-controls.has-background {
+  background: rgba(15, 23, 42, 0.92);
+}
+
+:deep(.app-control-button) {
+  width: 34px;
+  height: 30px;
+  margin: 0 !important;
+  border-radius: 6px !important;
+  color: #bfdbfe !important;
+}
+
+:deep(.app-control-button:hover) {
+  background: rgba(34, 211, 238, 0.16) !important;
+  color: #fff !important;
+}
+
+:deep(.app-control-button.is-close:hover) {
+  background: #ef4444 !important;
+}
 </style>

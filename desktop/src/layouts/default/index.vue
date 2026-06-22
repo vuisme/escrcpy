@@ -31,8 +31,8 @@
           </div>
         </template>
 
-        <template #right>
-          <QuickBar />
+        <template #center>
+          <QuickBar class="tvr-header-tools" collapsible />
         </template>
       </AppHeader>
 
@@ -59,6 +59,11 @@ const tabsModel = [
     label: 'device.list',
     value: '/device',
     icon: 'i-bi-headset-vr',
+  },
+  {
+    label: 'tvr.catalog.title',
+    value: '/vr-app-catalog',
+    icon: 'i-bi-collection',
   },
   {
     label: 'preferences.name',
@@ -160,5 +165,37 @@ const activeTabLabel = computed(() => {
   font-size: 20px;
   font-weight: 800;
   line-height: 1.05;
+}
+
+.tvr-header-tools {
+  pointer-events: auto;
+  max-width: 320px;
+  transition:
+    max-width 180ms ease,
+    box-shadow 180ms ease;
+}
+
+@media (max-width: 980px) {
+  .tvr-header-tools {
+    max-width: 52px;
+    justify-content: flex-start;
+  }
+
+  .tvr-header-tools:hover,
+  .tvr-header-tools:focus-within {
+    max-width: min(320px, calc(100vw - 260px));
+    box-shadow: 0 0 28px rgba(34, 211, 238, 0.2);
+  }
+}
+
+@media (max-width: 760px) {
+  .tvr-title-stack {
+    max-width: calc(100vw - 250px);
+  }
+
+  .tvr-header-tools:hover,
+  .tvr-header-tools:focus-within {
+    max-width: min(320px, calc(100vw - 210px));
+  }
 }
 </style>

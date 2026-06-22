@@ -1,73 +1,55 @@
-<div style="display:flex;">
-  <img src="https://cdn.jsdelivr.net/gh/viarotel/resources@latest/logos/escrcpy.png" alt="viarotel-escrcpy" width="108px">
-</div>
+# TheVisionReality
 
-# Escrcpy
+[![GitHub release](https://img.shields.io/github/v/release/vuisme/escrcpy?label=release)](https://github.com/vuisme/escrcpy/releases)
 
-[![GitCode](https://gitcode.com/viarotel-org/escrcpy/star/badge.svg)](https://gitcode.com/viarotel-org/escrcpy)
-[![Gitee](https://gitee.com/viarotel-org/escrcpy/badge/star.svg?theme=dark)](https://gitee.com/viarotel-org/escrcpy)
-[![GitHub](https://img.shields.io/github/stars/viarotel-org/escrcpy?label=Github%20Stars)](https://github.com/viarotel-org/escrcpy)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/viarotel-org/escrcpy)
-[![zread](https://img.shields.io/badge/Ask_Zread-_.svg?style=flat&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff)](https://zread.ai/viarotel-org/escrcpy)
+TheVisionReality is a VR-focused fork of [Escrcpy](https://github.com/viarotel-org/escrcpy), built for Meta Quest mirroring, streaming presets, and quick VR app launching while preserving the upstream Electron + scrcpy foundation.
 
-📱 Display and control your Android device graphically with scrcpy. [中文文档](https://github.com/viarotel-org/escrcpy/blob/main/README-CN.md)
+## What's New in 2.0
 
-<div style="display:flex;">
-  <img src="https://cdn.jsdelivr.net/gh/viarotel/resources@latest/screenshots/escrcpy/en-US/overview.png?version=2.5.1" alt="viarotel-escrcpy" width="100%">
-</div>
-
-<sub>Escrcpy focuses on a stable integration foundation; some advanced features come from the private extension repository EscrcpyX and are offered on a paid basis.</sub>
+- Dedicated TheVisionReality branding, app icon, and VR-oriented interface.
+- Meta Quest crop presets for Full View, Quest 2 16x9, Quest 3 16x9, Quest 3 9x16, and Quest 3 1x1.
+- Reworked main layout with rail navigation, improved device cards, cleaner control buttons, and responsive header tools.
+- Dedicated VR App Catalog page with UI editing instead of raw JSON editing.
+- Scan apps from any connected Android/Quest device and import package/activity metadata into the catalog.
+- VR Apps menu fetches installed app icons dynamically from the connected device.
+- Expanded Vietnamese localization for the custom VR interface.
 
 ## Features
 
-- 🖥️ **Inset Mirror**: Dedicated embedded window, auto-fits screen resolution and orientation, with integrated one-tap shortcuts
-- ⌨️ **Keyboard Mapping**: Configure touch, joystick, swipe, scroll, and automation mappings directly on the embedded mirror
-- 🔄 **Multi-Device Control**: Control multiple devices simultaneously in a single window, broadcast input, with batch screenshot and APK install support
-- 🎛️ **Integrated Control Bar**: Compact, draggable sidebar with reorderable controls: rotation, screenshot, apps, files, terminal, AI assistant, and automation
-- 🤖 **Intelligent Control**: Natural-language commands powered by AutoGLM for smart control of Android devices
-- 🏃 **Automated Execution**: Automation workflows run in parallel, supporting synchronized operations across multiple devices
-- 🪟 **Multi-Device Management**: Visual window orchestration for centralized management of all connected devices
-- 📡 **Wireless Connection**: Wireless ADB connections with LAN auto-discovery and Gnirehtet reverse tethering support
-- ⚡ **Scrcpy Core**: High-performance, low-latency screen mirroring and control
+- High-performance Android and Meta Quest mirroring powered by scrcpy.
+- Quest-oriented crop presets and angle options for VR streaming.
+- Wireless ADB connection, LAN discovery, recording, screenshots, terminal, and file tools.
+- VR App launcher with catalog management and connected-device scanning.
+- Multi-device management inherited from upstream Escrcpy.
 
 ## Installation
 
 ### Manual Installation via Released Packages
 
-Check the [Releases Page](https://github.com/viarotel-org/escrcpy/releases)
-
-### macOS Installation via Homebrew
-
-Refer to [homebrew-escrcpy](https://github.com/viarotel-org/homebrew-escrcpy)
+Check the [TheVisionReality Releases Page](https://github.com/vuisme/escrcpy/releases).
 
 ## Documentation
 
+Upstream Escrcpy documentation remains useful for the core app behavior:
+
 - [Getting Started](https://viarotel.eu.org/guide/started)
-- [Shortcuts](https://viarotel.eu.org/reference/scrcpy/shortcuts)
+- [Scrcpy video options](https://viarotel.eu.org/reference/scrcpy/video)
 - [Device Operations](https://viarotel.eu.org/guide/operation)
 - [Preferences](https://viarotel.eu.org/guide/preferences)
-- [Reverse Tethering](https://viarotel.eu.org/reference/gnirehtet/)
 
 ## For Developers
 
-If you are a developer and wish to run or help improve this project, refer to the [Development Documentation](https://github.com/viarotel-org/escrcpy/blob/main/develop.md)
+This repo keeps the upstream pnpm + Turborepo + Electron architecture. See [develop.md](develop.md) and [AGENTS.md](AGENTS.md) for local development notes.
 
-## Get Help
+## Upstream Credit
 
-As an open-source project powered by passion, support is limited, and updates are irregular.
-
-- [FAQ](https://viarotel.eu.org/help/escrcpy)
-- [Report Issues](https://github.com/viarotel-org/escrcpy/issues)
-- [Contact Email](mailto:viarotel@qq.com)
-
-## What's Next?
-
-[Milestones](https://viarotel.eu.org/guide/milestones)
+TheVisionReality is based on [viarotel-org/escrcpy](https://github.com/viarotel-org/escrcpy). Credit, architecture, and much of the core Electron/scrcpy integration come from the upstream project.
 
 ## Acknowledgments
 
-This project owes its existence to the following open-source projects:
+This project owes its existence to the upstream Escrcpy project and the following open-source projects:
 
+- [Escrcpy](https://github.com/viarotel-org/escrcpy)
 - [scrcpy](https://github.com/Genymobile/scrcpy)
 - [adbkit](https://github.com/DeviceFarmer/adbkit)
 - [electron](https://www.electronjs.org/)
@@ -75,33 +57,3 @@ This project owes its existence to the following open-source projects:
 - [gnirehtet](https://github.com/Genymobile/gnirehtet/)
 - [autoglm.js](https://github.com/FliPPeDround/autoglm.js)
 - [tangoadb](https://tangoadb.dev/)
-
-## Friendly Links
-
-- [ADB Device Manager 2](https://github.com/Shrey113/Adb-Device-Manager-2)
-
-## Donate
-
-If this project has helped you, consider buying me a coffee to keep me motivated for further improvements 😛
-
-<div style="display:flex;">
-  <img src="https://cdn.jsdelivr.net/gh/viarotel/resources@latest/donate/viarotel-wepay.png" alt="viarotel-wepay" width="30%">
-  <img src="https://cdn.jsdelivr.net/gh/viarotel/resources@latest/donate/viarotel-alipay.png" alt="viarotel-alipay" width="30%">
-  <a href="https://www.paypal.com/paypalme/viarotel" target="_blank" rel="noopener noreferrer">
-    <img src="https://cdn.jsdelivr.net/gh/viarotel/resources@latest/donate/viarotel-paypal.png" alt="viarotel-paypal" width="30%">
-  </a>
-</div>
-
-You can also support me through the AiFaDian platform.
-
-<div style="display:flex; justify-content:center;"> <a href="https://afdian.com/a/viarotel"><img width="200" src="https://pic1.afdiancdn.com/static/img/welcome/button-sponsorme.png" alt=""></a> </div>
-
-## Contributors
-
-Thanks to all who contributed!
-
-[Contributors](https://github.com/viarotel/escrcpy/graphs/contributors)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=viarotel-org/escrcpy&type=Date)](https://star-history.com/#viarotel-org/escrcpy&Date)
